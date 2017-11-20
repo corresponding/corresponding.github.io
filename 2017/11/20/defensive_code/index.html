@@ -79,13 +79,17 @@
 
 
 
-<meta property="og:type" content="website">
-<meta property="og:title" content="corresponding">
-<meta property="og:url" content="http://yoursite.com/index.html">
+<meta name="description" content="在我自己的编码工作中，调bug的时间至少占总时间的50%。有些时候修复一个的bug甚至会占用几天的时间，最后发现问题出在几天没加条件预防的语句，这太让人恼火了。我总是在苦恼，为何我的程序有这么多闪退。为什么就不能有一个安全的编程环境给我们，让我们这些菜鸟写的代码不闪退。  代码世界中危机丛生，程序跑着跑着就要歇菜。  ">
+<meta property="og:type" content="article">
+<meta property="og:title" content="防御式编程">
+<meta property="og:url" content="http://yoursite.com/2017/11/20/defensive_code/index.html">
 <meta property="og:site_name" content="corresponding">
+<meta property="og:description" content="在我自己的编码工作中，调bug的时间至少占总时间的50%。有些时候修复一个的bug甚至会占用几天的时间，最后发现问题出在几天没加条件预防的语句，这太让人恼火了。我总是在苦恼，为何我的程序有这么多闪退。为什么就不能有一个安全的编程环境给我们，让我们这些菜鸟写的代码不闪退。  代码世界中危机丛生，程序跑着跑着就要歇菜。  随着发际线的慢慢后退，我开始认清一个令人感觉残酷的现实：这是你的代码，你需要为其">
 <meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2017-11-20T12:16:31.087Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="corresponding">
+<meta name="twitter:title" content="防御式编程">
+<meta name="twitter:description" content="在我自己的编码工作中，调bug的时间至少占总时间的50%。有些时候修复一个的bug甚至会占用几天的时间，最后发现问题出在几天没加条件预防的语句，这太让人恼火了。我总是在苦恼，为何我的程序有这么多闪退。为什么就不能有一个安全的编程环境给我们，让我们这些菜鸟写的代码不闪退。  代码世界中危机丛生，程序跑着跑着就要歇菜。  随着发际线的慢慢后退，我开始认清一个令人感觉残酷的现实：这是你的代码，你需要为其">
 
 
 
@@ -115,13 +119,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/"/>
+  <link rel="canonical" href="http://yoursite.com/2017/11/20/defensive_code/"/>
 
 
 
 
 
-  <title>corresponding</title>
+  <title>防御式编程 | corresponding</title>
   
 
 
@@ -140,8 +144,7 @@
     
   
 
-  <div class="container sidebar-position-left 
-  page-home">
+  <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -214,9 +217,9 @@
         <div class="content-wrap">
           <div id="content" class="content">
             
-  <section id="posts" class="posts-expand">
+
+  <div id="posts" class="posts-expand">
     
-      
 
   
 
@@ -246,9 +249,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/11/20/defensive_code/" itemprop="url">防御式编程</a></h1>
+          <h1 class="post-title" itemprop="name headline">防御式编程</h1>
         
 
         <div class="post-meta">
@@ -298,9 +299,7 @@
       
 
       
-        
-          
-            <p>在我自己的编码工作中，调bug的时间至少占总时间的50%。<br>有些时候修复一个的bug甚至会占用几天的时间，最后发现问题出在几天没加条件预防的语句，这太让人恼火了。<br><br>我总是在苦恼，为何我的程序有这么多闪退。<br>为什么就不能有一个安全的编程环境给我们，让我们这些菜鸟写的代码不闪退。</p>
+        <p>在我自己的编码工作中，调bug的时间至少占总时间的50%。<br>有些时候修复一个的bug甚至会占用几天的时间，最后发现问题出在几天没加条件预防的语句，这太让人恼火了。<br><br>我总是在苦恼，为何我的程序有这么多闪退。<br>为什么就不能有一个安全的编程环境给我们，让我们这些菜鸟写的代码不闪退。</p>
 <blockquote>
 <p>代码世界中危机丛生，程序跑着跑着就要歇菜。</p>
 </blockquote>
@@ -351,8 +350,6 @@
 <p>对自己来说，写的顺手bug少，最关键。</p>
 </blockquote>
 
-          
-        
       
     </div>
     
@@ -369,12 +366,12 @@
       
 
       
+      
+      
 
       
 
       
-      
-        <div class="post-eof"></div>
       
     </footer>
   </div>
@@ -384,10 +381,11 @@
   </article>
 
 
-    
-  </section>
 
-  
+    <div class="post-spread">
+      
+    </div>
+  </div>
 
 
           </div>
@@ -395,6 +393,10 @@
 
 
           
+
+  
+
+
 
         </div>
         
@@ -415,8 +417,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -460,6 +471,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#防御式编程"><span class="nav-number">1.</span> <span class="nav-text">防御式编程</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-处理方法"><span class="nav-number">1.1.</span> <span class="nav-text">1.处理方法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-1-变量的预先检查"><span class="nav-number">1.1.1.</span> <span class="nav-text">1.1.变量的预先检查</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-2-异常后处理"><span class="nav-number">1.1.2.</span> <span class="nav-text">1.2.异常后处理</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-效率"><span class="nav-number">1.2.</span> <span class="nav-text">2.效率</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-每次都检查，烦"><span class="nav-number">1.3.</span> <span class="nav-text">3.每次都检查，烦</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-final关键字"><span class="nav-number">1.4.</span> <span class="nav-text">4.final关键字</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-IDE的warning"><span class="nav-number">1.5.</span> <span class="nav-text">5.IDE的warning</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#7-断言"><span class="nav-number">1.6.</span> <span class="nav-text">7.断言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#8-工具检查"><span class="nav-number">1.7.</span> <span class="nav-text">8.工具检查</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#9-重大错误"><span class="nav-number">1.8.</span> <span class="nav-text">9.重大错误</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
@@ -593,6 +620,10 @@
   
 
   
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.3"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.3"></script>
+
+
 
   
 
