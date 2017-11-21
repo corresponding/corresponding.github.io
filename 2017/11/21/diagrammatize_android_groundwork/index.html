@@ -79,13 +79,17 @@
 
 
 
-<meta property="og:type" content="website">
-<meta property="og:title" content="corresponding">
-<meta property="og:url" content="http://yoursite.com/index.html">
+<meta name="description" content="很多应用开发者对Android底层望而却步，主要有两个原因：1.底层太难，我看不懂2.学习底层知识对目前开发没有帮助  对于太难的这点我觉得是因为一开始直接扑进源码里面，看到那些一长串一长串的函数，很容易看得晕头转向，恶心想吐。如果掌握合适的学习方法，会发现其实并没有这么困难。我建议，在看源码前先理清Android底层">
+<meta property="og:type" content="article">
+<meta property="og:title" content="图解Android底层">
+<meta property="og:url" content="http://yoursite.com/2017/11/21/diagrammatize_android_groundwork/index.html">
 <meta property="og:site_name" content="corresponding">
+<meta property="og:description" content="很多应用开发者对Android底层望而却步，主要有两个原因：1.底层太难，我看不懂2.学习底层知识对目前开发没有帮助  对于太难的这点我觉得是因为一开始直接扑进源码里面，看到那些一长串一长串的函数，很容易看得晕头转向，恶心想吐。如果掌握合适的学习方法，会发现其实并没有这么困难。我建议，在看源码前先理清Android底层的主干逻辑，再拆解出各个模块，各个击破。 对于无帮助这点我觉得Android底">
 <meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2017-11-21T12:52:23.201Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="corresponding">
+<meta name="twitter:title" content="图解Android底层">
+<meta name="twitter:description" content="很多应用开发者对Android底层望而却步，主要有两个原因：1.底层太难，我看不懂2.学习底层知识对目前开发没有帮助  对于太难的这点我觉得是因为一开始直接扑进源码里面，看到那些一长串一长串的函数，很容易看得晕头转向，恶心想吐。如果掌握合适的学习方法，会发现其实并没有这么困难。我建议，在看源码前先理清Android底层的主干逻辑，再拆解出各个模块，各个击破。 对于无帮助这点我觉得Android底">
 
 
 
@@ -115,13 +119,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/"/>
+  <link rel="canonical" href="http://yoursite.com/2017/11/21/diagrammatize_android_groundwork/"/>
 
 
 
 
 
-  <title>corresponding</title>
+  <title>图解Android底层 | corresponding</title>
   
 
 
@@ -140,8 +144,7 @@
     
   
 
-  <div class="container sidebar-position-left 
-  page-home">
+  <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -214,9 +217,9 @@
         <div class="content-wrap">
           <div id="content" class="content">
             
-  <section id="posts" class="posts-expand">
+
+  <div id="posts" class="posts-expand">
     
-      
 
   
 
@@ -246,9 +249,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/11/21/diagrammatize_android_groundwork/" itemprop="url">图解Android底层</a></h1>
+          <h1 class="post-title" itemprop="name headline">图解Android底层</h1>
         
 
         <div class="post-meta">
@@ -298,9 +299,7 @@
       
 
       
-        
-          
-            <blockquote>
+        <blockquote>
 <p>很多应用开发者对Android底层望而却步，主要有两个原因：<br>1.底层太难，我看不懂<br>2.学习底层知识对目前开发没有帮助</p>
 </blockquote>
 <h5 id="对于太难的这点"><a href="#对于太难的这点" class="headerlink" title="对于太难的这点"></a>对于太难的这点</h5><p>我觉得是因为一开始直接扑进源码里面，看到那些一长串一长串的函数，很容易看得晕头转向，恶心想吐。如果掌握合适的学习方法，会发现其实并没有这么困难。<br>我建议，在看源码前先理清Android底层的主干逻辑，再拆解出各个模块，各个击破。</p>
@@ -410,8 +409,6 @@ AMS->>应用: 处理完毕</textarea><textarea id="sequence-5-options" style="di
 内核->>服务端: uid=A，pid=100（无法篡改）
 服务端->>客户端A: 哦，你是A，不能告诉你密码</textarea><textarea id="sequence-9-options" style="display: none">{"theme":"simple"}</textarea><script>  var code = document.getElementById("sequence-9-code").value;  var options = JSON.parse(decodeURIComponent(document.getElementById("sequence-9-options").value));  var diagram = Diagram.parse(code);  diagram.drawSVG("sequence-9", options);</script></p>
 
-          
-        
       
     </div>
     
@@ -428,181 +425,28 @@ AMS->>应用: 处理完毕</textarea><textarea id="sequence-5-options" style="di
       
 
       
-
-      
-
       
       
-        <div class="post-eof"></div>
+
       
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/11/20/defensive_code/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="corresponding">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="corresponding">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/11/20/defensive_code/" itemprop="url">防御式编程</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
             
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-11-20T18:50:20+08:00">
-                2017-11-20
-              </time>
+              <a href="/2017/11/20/defensive_code/" rel="next" title="防御式编程">
+                <i class="fa fa-chevron-left"></i> 防御式编程
+              </a>
             
+          </div>
 
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
             
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
+          </div>
         </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
       
 
       
-        
-          
-            <p>在我自己的编码工作中，调bug的时间至少占总时间的50%。<br>有些时候修复一个的bug甚至会占用几天的时间，最后发现问题出在几天没加条件预防的语句，这太让人恼火了。<br><br>我总是在苦恼，为何我的程序有这么多闪退。<br>为什么就不能有一个安全的编程环境给我们，让我们这些菜鸟写的代码不闪退。</p>
-<blockquote>
-<p>代码世界中危机丛生，程序跑着跑着就要歇菜。</p>
-</blockquote>
-<p>随着发际线的慢慢后退，我开始认清一个令人感觉残酷的现实：<br>这是你的代码，你需要为其付所有责任，包括最基础的安全性检查。</p>
-<blockquote>
-<p>慢慢的我们需要变得保守，不能轻易相信所有的数据，需要在使用前对其检查。</p>
-</blockquote>
-<hr>
-<h1 id="防御式编程"><a href="#防御式编程" class="headerlink" title="防御式编程"></a>防御式编程</h1><p>原则：就是对来源数据持怀疑、不信任的态度<br>对调用者含有敌意，他们可能会放入各种奇怪的未经检查的数据。<br>其中最常用的就是null的判断。</p>
-<p>在面向对象的编程中，任何一个对象都初始为null（final和 static关键字声明的变量除外）<br>当然，在一般情况下，变量会在使用前被赋值。<br>当调用null对象的方法时，会抛出NullPointerException。<br>如果没有及时对Exception进行捕获，程序就会报错。</p>
-<h2 id="1-处理方法"><a href="#1-处理方法" class="headerlink" title="1.处理方法"></a>1.处理方法</h2><p>这里有常用的两种处理方法，两者相互合作，相辅相成。</p>
-<h3 id="1-1-变量的预先检查"><a href="#1-1-变量的预先检查" class="headerlink" title="1.1.变量的预先检查"></a>1.1.变量的预先检查</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">void func(Model arg) &#123;</span><br><span class="line">    if (null == arg) &#123;</span><br><span class="line">        // todo</span><br><span class="line">    &#125; else &#123;</span><br><span class="line">        // arg的合理性检查</span><br><span class="line">        arg.do();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>如果变量不符合要求，后续代码无法继续执行。<br>可以改成如下方式：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">void func(Model arg) &#123;</span><br><span class="line">    if (null == arg) &#123;</span><br><span class="line">        // todo</span><br><span class="line">        return;</span><br><span class="line">    &#125;</span><br><span class="line">    if (arg不符合要求) &#123;</span><br><span class="line">        // todo</span><br><span class="line">        return;</span><br><span class="line">    &#125;</span><br><span class="line">    // ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="1-2-异常后处理"><a href="#1-2-异常后处理" class="headerlink" title="1.2.异常后处理"></a>1.2.异常后处理</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">void func(Model arg) &#123;</span><br><span class="line">    try &#123;</span><br><span class="line">        arg.do();</span><br><span class="line">    &#125; catch (NullPointerException e) &#123;</span><br><span class="line">        // todo</span><br><span class="line">    &#125; catch (Exception e) &#123;</span><br><span class="line">        // todo</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<blockquote>
-<p>合理的使用Exception，能帮助我们更好的代码分层。</p>
-</blockquote>
-<p>Exception它可以报错误上报给调用链的上层。<br>每个函数都有他的职责范围和处理错误的范围，底层函数不需要处理所有的Exception，他可以将自己无法处理的Exception交给上级。</p>
-<h2 id="2-效率"><a href="#2-效率" class="headerlink" title="2.效率"></a>2.效率</h2><p>有人会有疑问：每个函数进入处都进行合理性检查，会不会特别降低效率。</p>
-<p>对于一般的应用代码而言，这里的开销微乎其微，不用特别在意。<br>现有编译器都会帮用户做性能上优化。<br>如果对于底层或SDK的代码来说，还是需要注意下。</p>
-<h2 id="3-每次都检查，烦"><a href="#3-每次都检查，烦" class="headerlink" title="3.每次都检查，烦"></a>3.每次都检查，烦</h2><p>有人表示：我倒是不纠结与性能，但是在一个深度调用链，每个函数都要写一遍参数检查，又繁琐又影响阅读。<br>我之前也一直在纠结这个问题，觉得很难控制这个度。后来在看Android源码，终于有点想明白了，可以靠函数名传递一些有用信息。（源码真是博大精深，里面有各种精巧的函数设计）<br>这是在ActivityManagerService启动Activity过程中，调用各种startActivityXXX函数。<br>下面简单罗列下</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">startActivityAsUser()</span><br><span class="line">startActivityMayWait()</span><br><span class="line">startActivityLocked()</span><br><span class="line">startActivityCheckedLocked()</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
-<blockquote>
-<p>这里可以发现，函数中名有Checked和Locked。</p>
-</blockquote>
-<p>checked表示已经检查过了各种权限，Locked表示处于线程安全的情况下。<br>如果我们需要写几个深度调用函数时，某些可以使用checked字样，就不用重复的做参数检查。</p>
-<h2 id="4-final关键字"><a href="#4-final关键字" class="headerlink" title="4.final关键字"></a>4.final关键字</h2><p>对于某些赋值后内容不会改变的变量（读上去有点拗口），可以加上final关键字。<br>不用每次检查是否为null，直接去检查其构造函数，看看其中没有null检查。</p>
-<h2 id="5-IDE的warning"><a href="#5-IDE的warning" class="headerlink" title="5.IDE的warning"></a>5.IDE的warning</h2><p>发展到如今，IDE已经上warning提醒已经做得非常完善。<br>有时候因为做得过于完善，所以写一上午的代码，IDE啪啪啪列出十几条warning，大家反正懒得去看。就像每个香烟上都写着“吸烟有害健康”，也没见烟民们戒烟不抽。</p>
-<blockquote>
-<p>warning还是有用的，大家要理解IDE作者的良苦用心。</p>
-</blockquote>
-<p>最好是写好小一段代码，就去看看新增的warning，能过滤到一些低级的错误。</p>
-<h2 id="7-断言"><a href="#7-断言" class="headerlink" title="7.断言"></a>7.断言</h2><p>有人会说，这些安全性检查和处理，包括一些理论上不应该出现的情况。<br>本来出现这些情况，可以在开发过程中及时的闪退，在上线前修复。</p>
-<blockquote>
-<p>别担心，语言开发者早就想到了这个问题，祭出了大杀器Assert断言。</p>
-</blockquote>
-<p>而且现在的编译器，在release环境下会去掉断言，真是贴心。</p>
-<h2 id="8-工具检查"><a href="#8-工具检查" class="headerlink" title="8.工具检查"></a>8.工具检查</h2><p>有时候难免有疏落，这个时候就需要lint去检查下。<br>在C/C++程序中，可以使用PC-lint，并且打开Pointer-parameter-may-be-NULL这个开关（+fpn）。选项假设所有传递到函数中的指针都有可能是NULL。</p>
-<h2 id="9-重大错误"><a href="#9-重大错误" class="headerlink" title="9.重大错误"></a>9.重大错误</h2><p>如果当程序运行时出现重大错误，核心功能出现问题，程序还是会闪退的。<br>不要企图靠以上各种方法去续1s命。<br>这个时候就需要平时好好做好单元测试，以及好好对待测试人员，希望他们发现尽可能多的bug。</p>
-<hr>
-<p>总结下，这篇文章核心就是</p>
-<blockquote>
-<p>“对象使用前，要检查下其合理性”。</p>
-</blockquote>
-<p>当然检查的力度，是一个仁者见仁智者见智的问题。<br>一千个人读者有一千个哈姆雷特，有代码洁癖者，也有收放自如的高手。<br>这里面没有谁的策略更优。</p>
-<blockquote>
-<p>对自己来说，写的顺手bug少，最关键。</p>
-</blockquote>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
       
     </footer>
   </div>
@@ -612,10 +456,11 @@ AMS->>应用: 处理完毕</textarea><textarea id="sequence-5-options" style="di
   </article>
 
 
-    
-  </section>
 
-  
+    <div class="post-spread">
+      
+    </div>
+  </div>
 
 
           </div>
@@ -623,6 +468,10 @@ AMS->>应用: 处理完毕</textarea><textarea id="sequence-5-options" style="di
 
 
           
+
+  
+
+
 
         </div>
         
@@ -643,8 +492,17 @@ AMS->>应用: 处理完毕</textarea><textarea id="sequence-5-options" style="di
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -688,6 +546,22 @@ AMS->>应用: 处理完毕</textarea><textarea id="sequence-5-options" style="di
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-5"><a class="nav-link" href="#对于太难的这点"><span class="nav-number">1.</span> <span class="nav-text">对于太难的这点</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#对于无帮助这点"><span class="nav-number">2.</span> <span class="nav-text">对于无帮助这点</span></a></li></ol></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#1-应用程序背后：Android的各大系统服务"><span class="nav-number"></span> <span class="nav-text">1.应用程序背后：Android的各大系统服务</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#我举一个简单的例子"><span class="nav-number">1.</span> <span class="nav-text">我举一个简单的例子</span></a></li></ol></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2-如何获取这些系统服务：ServiceManager"><span class="nav-number"></span> <span class="nav-text">2.如何获取这些系统服务：ServiceManager</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#3-如何通信：Binder体系"><span class="nav-number"></span> <span class="nav-text">3.如何通信：Binder体系</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#继续问，Binder的性能优势？"><span class="nav-number">1.</span> <span class="nav-text">继续问，Binder的性能优势？</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Binder的易用性优势？"><span class="nav-number">2.</span> <span class="nav-text">Binder的易用性优势？</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
@@ -821,6 +695,10 @@ AMS->>应用: 处理完毕</textarea><textarea id="sequence-5-options" style="di
   
 
   
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.3"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.3"></script>
+
+
 
   
 
