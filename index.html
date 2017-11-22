@@ -187,6 +187,26 @@
         </li>
       
         
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
         <li class="menu-item menu-item-archives">
           <a href="/archives/" rel="section">
             
@@ -234,7 +254,7 @@
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="corresponding">
       <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="image" content="/images/avatar.jpg">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
@@ -271,6 +291,28 @@
           </span>
 
           
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Android/" itemprop="url" rel="index">
+                    <span itemprop="name">Android</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
 
           
             
@@ -300,21 +342,23 @@
       
         
           
-            <blockquote>
+            <h1 id="学习的原因"><a href="#学习的原因" class="headerlink" title="学习的原因"></a>学习的原因</h1><blockquote>
 <p>很多应用开发者对Android底层望而却步，主要有两个原因：<br>1.底层太难，我看不懂<br>2.学习底层知识对目前开发没有帮助</p>
 </blockquote>
-<h4 id="对于太难的这点"><a href="#对于太难的这点" class="headerlink" title="对于太难的这点"></a>对于太难的这点</h4><p>我觉得是因为一开始直接扑进源码里面，看到那些一长串一长串的函数，很容易看得晕头转向，恶心想吐。如果掌握合适的学习方法，会发现其实并没有这么困难。<br>我建议，在看源码前先理清Android底层的主干逻辑，再拆解出各个模块，各个击破。</p>
-<h4 id="对于无帮助这点"><a href="#对于无帮助这点" class="headerlink" title="对于无帮助这点"></a>对于无帮助这点</h4><p>我觉得Android底层知识的即时回报非常小，但是长期回报是巨大的。<br>如果能熟悉Android底层的原理，当在开发中遇到一些奇奇怪怪的问题时，我们可以通过debug和查看log等方式，结合底层原理去发现蛛丝马迹，真正解决一部分烦人的小概率bug。而且熟悉android底层的设计架构，在未来做软件架构设计时，可以参考借鉴，甚至可以在此基础上设计出更棒的架构。<br>这话听上去觉得特别夸张，其实不然，有两点原因：<br>1.Android底层的架构也在不断调整和优化中，这说明目前的不是最优解；<br>2.Android更新迭代了这么多版本，需要兼容旧版本，有些地方不能完全放开去设计，需要在兼容和完全优化中做选择。</p>
+<h2 id="对于太难的这点"><a href="#对于太难的这点" class="headerlink" title="对于太难的这点"></a>对于太难的这点</h2><p>我觉得是因为一开始直接扑进源码里面，看到那些一长串一长串的函数，很容易看得晕头转向，恶心想吐。如果掌握合适的学习方法，会发现其实并没有这么困难。<br>我建议，在看源码前先理清Android底层的主干逻辑，再拆解出各个模块，各个击破。</p>
+<h2 id="对于无帮助这点"><a href="#对于无帮助这点" class="headerlink" title="对于无帮助这点"></a>对于无帮助这点</h2><p>我觉得Android底层知识的即时回报非常小，但是长期回报是巨大的。<br>如果能熟悉Android底层的原理，当在开发中遇到一些奇奇怪怪的问题时，我们可以通过debug和查看log等方式，结合底层原理去发现蛛丝马迹，真正解决一部分烦人的小概率bug。而且熟悉android底层的设计架构，在未来做软件架构设计时，可以参考借鉴，甚至可以在此基础上设计出更棒的架构。<br>这话听上去觉得特别夸张，其实不然，有两点原因：<br>1.Android底层的架构也在不断调整和优化中，这说明目前的不是最优解；<br>2.Android更新迭代了这么多版本，需要兼容旧版本，有些地方不能完全放开去设计，需要在兼容和完全优化中做选择。</p>
 <hr>
 <p>作者在学习过程中，尝试按照自己的思路总结Android底层主干逻辑。肯定会有许多不足之处，希望大家多多指出。<br>由表到底，分成三层：</p>
 <blockquote>
 <p>1.应用程序背后：Android的各大系统服务<br>2.如何获取这些系统服务：ServiceManager<br>3.如何通信：Binder体系</p>
 </blockquote>
-<h1 id="1-应用程序背后：Android的各大系统服务"><a href="#1-应用程序背后：Android的各大系统服务" class="headerlink" title="1.应用程序背后：Android的各大系统服务"></a>1.应用程序背后：Android的各大系统服务</h1><p>这里首先要说明下，ActivityManagerService等各种应用服务，虽然说以Service结尾，但是这与Android四大组件Service并无关系。四大组件中的Service，主要提供需要在后台长期运行的服务（如复杂计算、下载等等）；这里的Service代表Client/Service架构中的Service。</p>
+<h1 id="应用程序背后：Android的各大系统服务"><a href="#应用程序背后：Android的各大系统服务" class="headerlink" title="应用程序背后：Android的各大系统服务"></a>应用程序背后：Android的各大系统服务</h1><p>这里首先要说明下，ActivityManagerService等各种应用服务，虽然说以Service结尾，但是这与Android四大组件Service并无关系。四大组件中的Service，主要提供需要在后台长期运行的服务（如复杂计算、下载等等）；这里的Service代表Client/Service架构中的Service。</p>
 <p>Client/Service架构简称为C/S架构，也是客户端/服务器端架构。服务器端主要提供数据管理、数据共享、数据及系统维护和并发控制等，客户端程序主要完成用户的具体的业务。<br>在Android系统中，Client就是我们写的各种应用程序，Service实现页面跳转，屏幕展示等功能细节。Client向Service发出命令，Service去实现完整的功能。</p>
-<h4 id="我举一个简单的例子"><a href="#我举一个简单的例子" class="headerlink" title="我举一个简单的例子"></a>我举一个简单的例子</h4><p>应用开发者常见的工作是，去实现一个Activity并且显示在手机屏幕上。<br>对于最简单的页面，开发者只要做三步：<br>1.AndroidManifest文件加入声明<br>2.Activity中设置setContentView<br>3.调用startActivity()去启动（发出指令，后续系统Service去实现）</p>
+<blockquote>
+<p>我举一个简单的例子<br>应用开发者常见的工作是，去实现一个Activity并且显示在手机屏幕上。<br>对于最简单的页面，开发者只要做三步：<br>1.AndroidManifest文件加入声明<br>2.Activity中设置setContentView<br>3.调用startActivity()去启动（发出指令，后续系统Service去实现）</p>
+</blockquote>
 <p>在背后辛勤工作的就是Android的各大系统服务，例如ActivityManagerService（后续简称AMS）主要管理Activity运行状态，WindowManagerService（后续简称WMS）主要负责控制手机屏幕显示内容。</p>
-<h1 id="2-如何获取这些系统服务：ServiceManager"><a href="#2-如何获取这些系统服务：ServiceManager" class="headerlink" title="2.如何获取这些系统服务：ServiceManager"></a>2.如何获取这些系统服务：ServiceManager</h1><p>上一节简单的描述了下应用通过各大系统服务去完成Activity生成和屏幕显示。<br>这里就会有个问题，我们如何去获取这些服务。在应用开发中，如果我们需要使用第三方控件OkHttp，我们需要导入okhttp包，或者在gradle中写入对其的依赖，之后我们才可以调用OkHttp中的对象和方法。</p>
+<h1 id="如何获取这些系统服务：ServiceManager"><a href="#如何获取这些系统服务：ServiceManager" class="headerlink" title="如何获取这些系统服务：ServiceManager"></a>如何获取这些系统服务：ServiceManager</h1><p>上一节简单的描述了下应用通过各大系统服务去完成Activity生成和屏幕显示。<br>这里就会有个问题，我们如何去获取这些服务。在应用开发中，如果我们需要使用第三方控件OkHttp，我们需要导入okhttp包，或者在gradle中写入对其的依赖，之后我们才可以调用OkHttp中的对象和方法。</p>
 <p>在Android底层也是类似，其中有一个ServiceManager在统筹管理所有的服务。<br>还是采用上节说的C/S架构，应用程序是客户端，向ServiceManager服务端发起请求获取指定name的服务，要求服务端给与AMS的访问引用。<br>应用程序持有AMS的引用后，继续采用C/S架构。应用本身还是客户端，此时AMS充当服务端，处理服务端发起的各种Activitiy请求。</p>
 <div id="sequence-0"></div>
 
@@ -330,28 +374,26 @@
 <div id="sequence-3"></div>
 
 
-<h1 id="3-如何通信：Binder体系"><a href="#3-如何通信：Binder体系" class="headerlink" title="3.如何通信：Binder体系"></a>3.如何通信：Binder体系</h1><p>上面我们了解了系统服务的作用和如何获取系统服务，还有一个更加基础的问题，应用如何和这些系统服务通信。</p>
+<h1 id="如何通信：Binder体系"><a href="#如何通信：Binder体系" class="headerlink" title="如何通信：Binder体系"></a>如何通信：Binder体系</h1><p>上面我们了解了系统服务的作用和如何获取系统服务，还有一个更加基础的问题，应用如何和这些系统服务通信。</p>
 <blockquote>
 <p>在Android中，各个应用和各个服务处于不同的进程。就不能像进程内编程一样直接调用其他类的函数，需要进程间的通信（IPC：Inter-Process Communication）<br>这里Android采用Binder方式。</p>
 </blockquote>
 <p>这里思考下，Linux IPC常见的有pipe、socket、共享内存等等，为什么最后Android会选择Binder呢？<br>Android之间有大量的跨进程通信，对性能、安全性、易用性要求都很高，综合考虑后选择了Binder方式。</p>
-<blockquote>
-<p>@ 继续问，Binder的性能优势？</p>
-</blockquote>
-<p>socket主要用于网络通信，以TCP/IP作为基础，需要分包、重组等工作，所以效率递比较底下。<br>注：Android有采用Unix Domain Socket(UDS)，针对进程间通信优化。在Android中也有使用，这里暂不讨论。</p>
+<h2 id="继续问，Binder的性能优势？"><a href="#继续问，Binder的性能优势？" class="headerlink" title="继续问，Binder的性能优势？"></a>继续问，Binder的性能优势？</h2><p>socket主要用于网络通信，以TCP/IP作为基础，需要分包、重组等工作，所以效率递比较底下。<br>注：Android有采用Unix Domain Socket(UDS)，针对进程间通信优化。在Android中也有使用，这里暂不讨论。</p>
 <p>pipe采用消息转发机制，需要两次拷贝。</p>
 <div id="sequence-4"></div>
 
 <p>Binder在数据传输过程中，只需要一次拷贝。</p>
-<div id="sequence-5"></div><br>经过上述操作后，服务端地址s和客户端地址c指向同一块内存，<br>服务端想与客户端通信时，就将本地内容拷贝到地址s中。<br>客户端在同时监听地址c中的内存变化，及时获取新信息。<br><br>&gt; @ Binder的安全性优势？<br><br>一般的Linux IPC在通信时，请求方会发送user id(uid)和process id(pid)，服务方后根据此去检查请求方的权限，判断后续是否给与服务。<br>看上去特别安全，但是根源上出现了问题，uid和pid是请求方添加的。这意味着，请求方A可以修改uid和pid，设置成B一样。服务端是没有办法识别出来，这样安全性就无法保障了。<br><br><br><div id="sequence-6"></div>
+<div id="sequence-5"></div>
+
+<p>经过上述操作后，服务端地址s和客户端地址c指向同一块内存。<br>服务端想与客户端通信时，就将本地内容拷贝到地址s中，客户端在同时监听地址c中的内存变化，及时获取新信息。</p>
+<h2 id="Binder的安全性优势？"><a href="#Binder的安全性优势？" class="headerlink" title="Binder的安全性优势？"></a>Binder的安全性优势？</h2><p>一般的Linux IPC在通信时，请求方会发送user id(uid)和process id(pid)，服务方后根据此去检查请求方的权限，判断后续是否给与服务。<br>看上去特别安全，但是根源上出现了问题，uid和pid是请求方添加的。这意味着，请求方A可以修改uid和pid，设置成B一样。服务端是没有办法识别出来，这样安全性就无法保障了。</p>
+<div id="sequence-6"></div>
 
 <p>Binder优化了uid和pid机制，不再由请求方自己添加，而是由内核自动添加。</p>
 <div id="sequence-7"></div>
 
-<blockquote>
-<p>@ Binder的易用性优势？</p>
-</blockquote>
-<p>采用C/S架构，应用和服务分离，逻辑清晰。<br>应用持有一个服务的引用，向该引用发起各种请求，引用内部在通过Binder的细节传输给正式的服务，应用开发者不需要管通信的细节。反之，像Linux IPC的共享内存，虽然不需要拷贝，性能特别高。但是使用起来特别复杂，应用开发者需要控制管理服务的内存。</p>
+<h2 id="Binder的易用性优势？"><a href="#Binder的易用性优势？" class="headerlink" title="Binder的易用性优势？"></a>Binder的易用性优势？</h2><p>采用C/S架构，应用和服务分离，逻辑清晰。<br>应用持有一个服务的引用，向该引用发起各种请求，引用内部在通过Binder的细节传输给正式的服务，应用开发者不需要管通信的细节。反之，像Linux IPC的共享内存，虽然不需要拷贝，性能特别高。但是使用起来特别复杂，应用开发者需要控制管理服务的内存。</p>
 <p>至此，简单的讲述下了《Android的各大系统服务》，《如何获取这些系统服务：ServiceManager》，《如何通信：Binder体系》。当然，本篇只是描述下系统服务的最表层，背后还有许许多多的代码细节和设计者巧妙构思，后续出相关的文章和大家展示。</p>
 <blockquote>
 <p>里面出现最多的字样就是C/S架构，大家在学习中牢记这个架构，Android底层所有的细节都围绕这个展开。</p>
@@ -377,7 +419,6 @@ AMS->>应用: 处理完毕</textarea><textarea id="sequence-3-options" style="di
 系统->>系统: 开辟一块内存空间space1
 系统->>内核: 返回k1，指向这块内存空间
 系统->>客户端: 返回地址c，指向这内存空间
-
 服务端->>系统: mmap()，将指定内存space1映射到客户端B中
 系统->>服务端: 返回地址s，指向这内存空间</textarea><textarea id="sequence-5-options" style="display: none">{"theme":"simple"}</textarea><script>  var code = document.getElementById("sequence-5-code").value;  var options = JSON.parse(decodeURIComponent(document.getElementById("sequence-5-options").value));  var diagram = Diagram.parse(code);  diagram.drawSVG("sequence-5", options);</script><textarea id="sequence-6-code" style="display: none">客户端A->>服务端: uid=A，pid=100
 服务端->>客户端A: 哦，你是A，不能告诉你密码
@@ -440,7 +481,7 @@ AMS->>应用: 处理完毕</textarea><textarea id="sequence-3-options" style="di
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="corresponding">
       <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="image" content="/images/avatar.jpg">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
@@ -476,6 +517,28 @@ AMS->>应用: 处理完毕</textarea><textarea id="sequence-3-options" style="di
             
           </span>
 
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/coding/" itemprop="url" rel="index">
+                    <span itemprop="name">coding</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
           
 
           
@@ -517,36 +580,36 @@ AMS->>应用: 处理完毕</textarea><textarea id="sequence-3-options" style="di
 <hr>
 <h1 id="防御式编程"><a href="#防御式编程" class="headerlink" title="防御式编程"></a>防御式编程</h1><p>原则：就是对来源数据持怀疑、不信任的态度<br>对调用者含有敌意，他们可能会放入各种奇怪的未经检查的数据。<br>其中最常用的就是null的判断。</p>
 <p>在面向对象的编程中，任何一个对象都初始为null（final和 static关键字声明的变量除外）<br>当然，在一般情况下，变量会在使用前被赋值。<br>当调用null对象的方法时，会抛出NullPointerException。<br>如果没有及时对Exception进行捕获，程序就会报错。</p>
-<h2 id="1-处理方法"><a href="#1-处理方法" class="headerlink" title="1.处理方法"></a>1.处理方法</h2><p>这里有常用的两种处理方法，两者相互合作，相辅相成。</p>
-<h3 id="1-1-变量的预先检查"><a href="#1-1-变量的预先检查" class="headerlink" title="1.1.变量的预先检查"></a>1.1.变量的预先检查</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">void func(Model arg) &#123;</span><br><span class="line">    if (null == arg) &#123;</span><br><span class="line">        // todo</span><br><span class="line">    &#125; else &#123;</span><br><span class="line">        // arg的合理性检查</span><br><span class="line">        arg.do();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="处理方法"><a href="#处理方法" class="headerlink" title="处理方法"></a>处理方法</h2><p>这里有常用的两种处理方法，两者相互合作，相辅相成。</p>
+<h3 id="变量的预先检查"><a href="#变量的预先检查" class="headerlink" title="变量的预先检查"></a>变量的预先检查</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">void func(Model arg) &#123;</span><br><span class="line">    if (null == arg) &#123;</span><br><span class="line">        // todo</span><br><span class="line">    &#125; else &#123;</span><br><span class="line">        // arg的合理性检查</span><br><span class="line">        arg.do();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>如果变量不符合要求，后续代码无法继续执行。<br>可以改成如下方式：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">void func(Model arg) &#123;</span><br><span class="line">    if (null == arg) &#123;</span><br><span class="line">        // todo</span><br><span class="line">        return;</span><br><span class="line">    &#125;</span><br><span class="line">    if (arg不符合要求) &#123;</span><br><span class="line">        // todo</span><br><span class="line">        return;</span><br><span class="line">    &#125;</span><br><span class="line">    // ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="1-2-异常后处理"><a href="#1-2-异常后处理" class="headerlink" title="1.2.异常后处理"></a>1.2.异常后处理</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">void func(Model arg) &#123;</span><br><span class="line">    try &#123;</span><br><span class="line">        arg.do();</span><br><span class="line">    &#125; catch (NullPointerException e) &#123;</span><br><span class="line">        // todo</span><br><span class="line">    &#125; catch (Exception e) &#123;</span><br><span class="line">        // todo</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="异常后处理"><a href="#异常后处理" class="headerlink" title="异常后处理"></a>异常后处理</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">void func(Model arg) &#123;</span><br><span class="line">    try &#123;</span><br><span class="line">        arg.do();</span><br><span class="line">    &#125; catch (NullPointerException e) &#123;</span><br><span class="line">        // todo</span><br><span class="line">    &#125; catch (Exception e) &#123;</span><br><span class="line">        // todo</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <blockquote>
 <p>合理的使用Exception，能帮助我们更好的代码分层。</p>
 </blockquote>
 <p>Exception它可以报错误上报给调用链的上层。<br>每个函数都有他的职责范围和处理错误的范围，底层函数不需要处理所有的Exception，他可以将自己无法处理的Exception交给上级。</p>
-<h2 id="2-效率"><a href="#2-效率" class="headerlink" title="2.效率"></a>2.效率</h2><p>有人会有疑问：每个函数进入处都进行合理性检查，会不会特别降低效率。</p>
+<h2 id="效率"><a href="#效率" class="headerlink" title="效率"></a>效率</h2><p>有人会有疑问：每个函数进入处都进行合理性检查，会不会特别降低效率。</p>
 <p>对于一般的应用代码而言，这里的开销微乎其微，不用特别在意。<br>现有编译器都会帮用户做性能上优化。<br>如果对于底层或SDK的代码来说，还是需要注意下。</p>
-<h2 id="3-每次都检查，烦"><a href="#3-每次都检查，烦" class="headerlink" title="3.每次都检查，烦"></a>3.每次都检查，烦</h2><p>有人表示：我倒是不纠结与性能，但是在一个深度调用链，每个函数都要写一遍参数检查，又繁琐又影响阅读。<br>我之前也一直在纠结这个问题，觉得很难控制这个度。后来在看Android源码，终于有点想明白了，可以靠函数名传递一些有用信息。（源码真是博大精深，里面有各种精巧的函数设计）<br>这是在ActivityManagerService启动Activity过程中，调用各种startActivityXXX函数。<br>下面简单罗列下</p>
+<h2 id="每次都检查，烦"><a href="#每次都检查，烦" class="headerlink" title="每次都检查，烦"></a>每次都检查，烦</h2><p>有人表示：我倒是不纠结与性能，但是在一个深度调用链，每个函数都要写一遍参数检查，又繁琐又影响阅读。<br>我之前也一直在纠结这个问题，觉得很难控制这个度。后来在看Android源码，终于有点想明白了，可以靠函数名传递一些有用信息。（源码真是博大精深，里面有各种精巧的函数设计）<br>这是在ActivityManagerService启动Activity过程中，调用各种startActivityXXX函数。<br>下面简单罗列下</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">startActivityAsUser()</span><br><span class="line">startActivityMayWait()</span><br><span class="line">startActivityLocked()</span><br><span class="line">startActivityCheckedLocked()</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
 <blockquote>
 <p>这里可以发现，函数中名有Checked和Locked。</p>
 </blockquote>
 <p>checked表示已经检查过了各种权限，Locked表示处于线程安全的情况下。<br>如果我们需要写几个深度调用函数时，某些可以使用checked字样，就不用重复的做参数检查。</p>
-<h2 id="4-final关键字"><a href="#4-final关键字" class="headerlink" title="4.final关键字"></a>4.final关键字</h2><p>对于某些赋值后内容不会改变的变量（读上去有点拗口），可以加上final关键字。<br>不用每次检查是否为null，直接去检查其构造函数，看看其中没有null检查。</p>
-<h2 id="5-IDE的warning"><a href="#5-IDE的warning" class="headerlink" title="5.IDE的warning"></a>5.IDE的warning</h2><p>发展到如今，IDE已经上warning提醒已经做得非常完善。<br>有时候因为做得过于完善，所以写一上午的代码，IDE啪啪啪列出十几条warning，大家反正懒得去看。就像每个香烟上都写着“吸烟有害健康”，也没见烟民们戒烟不抽。</p>
+<h2 id="final关键字"><a href="#final关键字" class="headerlink" title="final关键字"></a>final关键字</h2><p>对于某些赋值后内容不会改变的变量（读上去有点拗口），可以加上final关键字。<br>不用每次检查是否为null，直接去检查其构造函数，看看其中没有null检查。</p>
+<h2 id="IDE的warning"><a href="#IDE的warning" class="headerlink" title="IDE的warning"></a>IDE的warning</h2><p>发展到如今，IDE已经上warning提醒已经做得非常完善。<br>有时候因为做得过于完善，所以写一上午的代码，IDE啪啪啪列出十几条warning，大家反正懒得去看。就像每个香烟上都写着“吸烟有害健康”，也没见烟民们戒烟不抽。</p>
 <blockquote>
 <p>warning还是有用的，大家要理解IDE作者的良苦用心。</p>
 </blockquote>
 <p>最好是写好小一段代码，就去看看新增的warning，能过滤到一些低级的错误。</p>
-<h2 id="7-断言"><a href="#7-断言" class="headerlink" title="7.断言"></a>7.断言</h2><p>有人会说，这些安全性检查和处理，包括一些理论上不应该出现的情况。<br>本来出现这些情况，可以在开发过程中及时的闪退，在上线前修复。</p>
+<h2 id="断言"><a href="#断言" class="headerlink" title="断言"></a>断言</h2><p>有人会说，这些安全性检查和处理，包括一些理论上不应该出现的情况。<br>本来出现这些情况，可以在开发过程中及时的闪退，在上线前修复。</p>
 <blockquote>
 <p>别担心，语言开发者早就想到了这个问题，祭出了大杀器Assert断言。</p>
 </blockquote>
 <p>而且现在的编译器，在release环境下会去掉断言，真是贴心。</p>
-<h2 id="8-工具检查"><a href="#8-工具检查" class="headerlink" title="8.工具检查"></a>8.工具检查</h2><p>有时候难免有疏落，这个时候就需要lint去检查下。<br>在C/C++程序中，可以使用PC-lint，并且打开Pointer-parameter-may-be-NULL这个开关（+fpn）。选项假设所有传递到函数中的指针都有可能是NULL。</p>
-<h2 id="9-重大错误"><a href="#9-重大错误" class="headerlink" title="9.重大错误"></a>9.重大错误</h2><p>如果当程序运行时出现重大错误，核心功能出现问题，程序还是会闪退的。<br>不要企图靠以上各种方法去续1s命。<br>这个时候就需要平时好好做好单元测试，以及好好对待测试人员，希望他们发现尽可能多的bug。</p>
+<h2 id="工具检查"><a href="#工具检查" class="headerlink" title="工具检查"></a>工具检查</h2><p>有时候难免有疏落，这个时候就需要lint去检查下。<br>在C/C++程序中，可以使用PC-lint，并且打开Pointer-parameter-may-be-NULL这个开关（+fpn）。选项假设所有传递到函数中的指针都有可能是NULL。</p>
+<h2 id="重大错误"><a href="#重大错误" class="headerlink" title="重大错误"></a>重大错误</h2><p>如果当程序运行时出现重大错误，核心功能出现问题，程序还是会闪退的。<br>不要企图靠以上各种方法去续1s命。<br>这个时候就需要平时好好做好单元测试，以及好好对待测试人员，希望他们发现尽可能多的bug。</p>
 <hr>
 <p>总结下，这篇文章核心就是</p>
 <blockquote>
@@ -626,6 +689,10 @@ AMS->>应用: 处理完毕</textarea><textarea id="sequence-3-options" style="di
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
+              <img class="site-author-image" itemprop="image"
+                src="/images/avatar.jpg"
+                alt="corresponding" />
+            
               <p class="site-author-name" itemprop="name">corresponding</p>
               <p class="site-description motion-element" itemprop="description"></p>
           </div>
@@ -644,7 +711,25 @@ AMS->>应用: 处理完毕</textarea><textarea id="sequence-3-options" style="di
             
 
             
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">2</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
 
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">4</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
             
 
           </nav>
@@ -652,6 +737,14 @@ AMS->>应用: 处理完毕</textarea><textarea id="sequence-3-options" style="di
           
 
           <div class="links-of-author motion-element">
+            
+              
+                <span class="links-of-author-item">
+                  <a href="https://github.com/corresponding" target="_blank" title="GitHub">
+                    
+                      <i class="fa fa-fw fa-globe"></i>GitHub</a>
+                </span>
+              
             
           </div>
 
