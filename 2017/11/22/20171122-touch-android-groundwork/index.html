@@ -95,7 +95,7 @@
 <meta property="og:image" content="http://yoursite.com/2017/11/22/20171122-touch-android-groundwork/1122_06.png">
 <meta property="og:image" content="http://yoursite.com/2017/11/22/20171122-touch-android-groundwork/1122_07.png">
 <meta property="og:image" content="http://yoursite.com/2017/11/22/20171122-touch-android-groundwork/1122_08.png">
-<meta property="og:updated_time" content="2017-11-23T09:00:01.694Z">
+<meta property="og:updated_time" content="2017-11-23T09:02:08.190Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="浅谈Android底层">
 <meta name="twitter:description" content="学习的原因 很多应用开发者对Android底层望而却步，主要有两个原因：1.底层太难，我看不懂2.学习底层知识对目前开发没有帮助  对于太难的这点我觉得是因为一开始直接扑进源码里面，看到那些一长串一长串的函数，很容易看得晕头转向，恶心想吐。如果掌握合适的学习方法，会发现其实并没有这么困难。我建议，在看源码前先理清Android底层的主干逻辑，再拆解出各个模块，各个击破。 对于无帮助这点我觉得And">
@@ -365,7 +365,9 @@
 <p>Client/Server架构简称为C/S架构，也是客户端/服务器端架构。服务器端主要提供数据管理、数据共享、数据及系统维护和并发控制等，客户端程序主要完成用户的具体的业务。<br>在Android系统中，Client就是我们写的各种应用程序，Server实现页面跳转，屏幕展示等功能细节。Client向Server发出命令，Server去实现完整的功能。</p>
 <blockquote>
 <p>注：Client/Server架构是Server，我们说的Android系统服务是Service。虽然说都是表示“服务”，建议还是注意下拼写，方便更好区分。</p>
-<p>我举一个简单的例子<br>应用开发者常见的工作是，去实现一个Activity并且显示在手机屏幕上。<br>对于最简单的页面，开发者只要做三步：<br>1.AndroidManifest文件加入声明<br>2.Activity中设置setContentView<br>3.调用startActivity()去启动（发出指令，后续系统Service去实现）</p>
+</blockquote>
+<h2 id="我举一个简单的例子"><a href="#我举一个简单的例子" class="headerlink" title="我举一个简单的例子"></a>我举一个简单的例子</h2><blockquote>
+<p>应用开发者常见的工作是，去实现一个Activity并且显示在手机屏幕上。<br>对于最简单的页面，开发者只要做三步：<br>1.AndroidManifest文件加入声明<br>2.Activity中设置setContentView<br>3.调用startActivity()去启动（发出指令，后续系统Service去实现）</p>
 </blockquote>
 <p>在背后辛勤工作的就是Android的各大系统服务，例如ActivityManagerService（后续简称AMS）主要管理Activity运行状态，WindowManagerService（后续简称WMS）主要负责控制手机屏幕显示内容。</p>
 <h1 id="如何获取这些系统服务：ServiceManager"><a href="#如何获取这些系统服务：ServiceManager" class="headerlink" title="如何获取这些系统服务：ServiceManager"></a>如何获取这些系统服务：ServiceManager</h1><p>上一节简单的描述了下应用通过各大系统服务去完成Activity生成和屏幕显示。<br>这里就会有个问题，我们如何去获取这些服务。在应用开发中，如果我们需要使用第三方控件OkHttp，我们需要导入okhttp包，或者在gradle中写入对其的依赖，之后我们才可以调用OkHttp中的对象和方法。</p>
@@ -591,7 +593,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#学习的原因"><span class="nav-number">1.</span> <span class="nav-text">学习的原因</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#对于太难的这点"><span class="nav-number">1.1.</span> <span class="nav-text">对于太难的这点</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#对于无帮助这点"><span class="nav-number">1.2.</span> <span class="nav-text">对于无帮助这点</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#应用程序背后：Android的各大系统服务"><span class="nav-number">2.</span> <span class="nav-text">应用程序背后：Android的各大系统服务</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#如何获取这些系统服务：ServiceManager"><span class="nav-number">3.</span> <span class="nav-text">如何获取这些系统服务：ServiceManager</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#如何通信：Binder体系"><span class="nav-number">4.</span> <span class="nav-text">如何通信：Binder体系</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#继续问，Binder的性能优势？"><span class="nav-number">4.1.</span> <span class="nav-text">继续问，Binder的性能优势？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Binder的安全性优势？"><span class="nav-number">4.2.</span> <span class="nav-text">Binder的安全性优势？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Binder的易用性优势？"><span class="nav-number">4.3.</span> <span class="nav-text">Binder的易用性优势？</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#学习的原因"><span class="nav-number">1.</span> <span class="nav-text">学习的原因</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#对于太难的这点"><span class="nav-number">1.1.</span> <span class="nav-text">对于太难的这点</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#对于无帮助这点"><span class="nav-number">1.2.</span> <span class="nav-text">对于无帮助这点</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#应用程序背后：Android的各大系统服务"><span class="nav-number">2.</span> <span class="nav-text">应用程序背后：Android的各大系统服务</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#我举一个简单的例子"><span class="nav-number">2.1.</span> <span class="nav-text">我举一个简单的例子</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#如何获取这些系统服务：ServiceManager"><span class="nav-number">3.</span> <span class="nav-text">如何获取这些系统服务：ServiceManager</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#如何通信：Binder体系"><span class="nav-number">4.</span> <span class="nav-text">如何通信：Binder体系</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#继续问，Binder的性能优势？"><span class="nav-number">4.1.</span> <span class="nav-text">继续问，Binder的性能优势？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Binder的安全性优势？"><span class="nav-number">4.2.</span> <span class="nav-text">Binder的安全性优势？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Binder的易用性优势？"><span class="nav-number">4.3.</span> <span class="nav-text">Binder的易用性优势？</span></a></li></ol></li></ol></div>
             
 
           </div>

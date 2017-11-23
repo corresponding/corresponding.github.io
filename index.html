@@ -356,7 +356,9 @@
 <p>Client/Server架构简称为C/S架构，也是客户端/服务器端架构。服务器端主要提供数据管理、数据共享、数据及系统维护和并发控制等，客户端程序主要完成用户的具体的业务。<br>在Android系统中，Client就是我们写的各种应用程序，Server实现页面跳转，屏幕展示等功能细节。Client向Server发出命令，Server去实现完整的功能。</p>
 <blockquote>
 <p>注：Client/Server架构是Server，我们说的Android系统服务是Service。虽然说都是表示“服务”，建议还是注意下拼写，方便更好区分。</p>
-<p>我举一个简单的例子<br>应用开发者常见的工作是，去实现一个Activity并且显示在手机屏幕上。<br>对于最简单的页面，开发者只要做三步：<br>1.AndroidManifest文件加入声明<br>2.Activity中设置setContentView<br>3.调用startActivity()去启动（发出指令，后续系统Service去实现）</p>
+</blockquote>
+<h2 id="我举一个简单的例子"><a href="#我举一个简单的例子" class="headerlink" title="我举一个简单的例子"></a>我举一个简单的例子</h2><blockquote>
+<p>应用开发者常见的工作是，去实现一个Activity并且显示在手机屏幕上。<br>对于最简单的页面，开发者只要做三步：<br>1.AndroidManifest文件加入声明<br>2.Activity中设置setContentView<br>3.调用startActivity()去启动（发出指令，后续系统Service去实现）</p>
 </blockquote>
 <p>在背后辛勤工作的就是Android的各大系统服务，例如ActivityManagerService（后续简称AMS）主要管理Activity运行状态，WindowManagerService（后续简称WMS）主要负责控制手机屏幕显示内容。</p>
 <h1 id="如何获取这些系统服务：ServiceManager"><a href="#如何获取这些系统服务：ServiceManager" class="headerlink" title="如何获取这些系统服务：ServiceManager"></a>如何获取这些系统服务：ServiceManager</h1><p>上一节简单的描述了下应用通过各大系统服务去完成Activity生成和屏幕显示。<br>这里就会有个问题，我们如何去获取这些服务。在应用开发中，如果我们需要使用第三方控件OkHttp，我们需要导入okhttp包，或者在gradle中写入对其的依赖，之后我们才可以调用OkHttp中的对象和方法。</p>
