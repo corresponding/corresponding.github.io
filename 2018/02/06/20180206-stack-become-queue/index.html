@@ -1,0 +1,855 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.3" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.3">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.3" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Algorithm," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="原文链接 转载已授权  《算法（第四版）》中的题目是这样的：用有限个栈实现一个队列，保证每个队列操作（在最坏情况下）都只需要常数次的栈操作。 那么这里就使用六个栈来解决这个问题。 这个算法来自于这篇论文。原文里用的是 Pure Lisp，不过语法很简单，还是很容易看懂的。 先导知识——用两个栈模拟一个队列如何使用两个栈">
+<meta name="keywords" content="Algorithm">
+<meta property="og:type" content="article">
+<meta property="og:title" content="用 6 个栈实现一个 O(1) 队列">
+<meta property="og:url" content="http://yoursite.com/2018/02/06/20180206-stack-become-queue/index.html">
+<meta property="og:site_name" content="corresponding">
+<meta property="og:description" content="原文链接 转载已授权  《算法（第四版）》中的题目是这样的：用有限个栈实现一个队列，保证每个队列操作（在最坏情况下）都只需要常数次的栈操作。 那么这里就使用六个栈来解决这个问题。 这个算法来自于这篇论文。原文里用的是 Pure Lisp，不过语法很简单，还是很容易看懂的。 先导知识——用两个栈模拟一个队列如何使用两个栈来模拟一个队列操作？这是一道很经典的题目，答案也有很多种，这里只介绍之后会用到的">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://yoursite.com/2018/02/06/20180206-stack-become-queue/0206_01.png">
+<meta property="og:image" content="http://yoursite.com/2018/02/06/20180206-stack-become-queue/0206_02.png">
+<meta property="og:image" content="http://yoursite.com/2018/02/06/20180206-stack-become-queue/0206_03.png">
+<meta property="og:image" content="http://yoursite.com/2018/02/06/20180206-stack-become-queue/0206_04.png">
+<meta property="og:image" content="http://yoursite.com/2018/02/06/20180206-stack-become-queue/0206_05.png">
+<meta property="og:image" content="http://yoursite.com/2018/02/06/20180206-stack-become-queue/0206_06.png">
+<meta property="og:image" content="http://yoursite.com/2018/02/06/20180206-stack-become-queue/0206_07.png">
+<meta property="og:image" content="http://yoursite.com/2018/02/06/20180206-stack-become-queue/0206_08.png">
+<meta property="og:image" content="http://yoursite.com/2018/02/06/20180206-stack-become-queue/0206_09.png">
+<meta property="og:image" content="http://yoursite.com/2018/02/06/20180206-stack-become-queue/0206_10.png">
+<meta property="og:image" content="http://yoursite.com/2018/02/06/20180206-stack-become-queue/0206_11.png">
+<meta property="og:image" content="http://yoursite.com/2018/02/06/20180206-stack-become-queue/0206_12.png">
+<meta property="og:image" content="http://yoursite.com/2018/02/06/20180206-stack-become-queue/0206_13.png">
+<meta property="og:image" content="http://yoursite.com/2018/02/06/20180206-stack-become-queue/0206_14.png">
+<meta property="og:image" content="http://yoursite.com/2018/02/06/20180206-stack-become-queue/0206_15.png">
+<meta property="og:image" content="http://yoursite.com/2018/02/06/20180206-stack-become-queue/0206_16.png">
+<meta property="og:image" content="http://yoursite.com/2018/02/06/20180206-stack-become-queue/0206_17.png">
+<meta property="og:image" content="http://yoursite.com/2018/02/06/20180206-stack-become-queue/0206_18.png">
+<meta property="og:image" content="http://yoursite.com/2018/02/06/20180206-stack-become-queue/0206_19.png">
+<meta property="og:image" content="http://yoursite.com/2018/02/06/20180206-stack-become-queue/0206_20.png">
+<meta property="og:image" content="http://yoursite.com/2018/02/06/20180206-stack-become-queue/0206_21.png">
+<meta property="og:image" content="http://yoursite.com/2018/02/06/20180206-stack-become-queue/0206_22.png">
+<meta property="og:image" content="http://yoursite.com/2018/02/06/20180206-stack-become-queue/0206_23.png">
+<meta property="og:image" content="http://yoursite.com/2018/02/06/20180206-stack-become-queue/0206_24.png">
+<meta property="og:image" content="http://yoursite.com/2018/02/06/20180206-stack-become-queue/0206_25.png">
+<meta property="og:image" content="http://yoursite.com/2018/02/06/20180206-stack-become-queue/0206_26.png">
+<meta property="og:image" content="http://yoursite.com/2018/02/06/20180206-stack-become-queue/0206_27.png">
+<meta property="og:image" content="http://yoursite.com/2018/02/06/20180206-stack-become-queue/0206_28.png">
+<meta property="og:image" content="http://yoursite.com/2018/02/06/20180206-stack-become-queue/0206_29.png">
+<meta property="og:image" content="http://yoursite.com/2018/02/06/20180206-stack-become-queue/0206_30.png">
+<meta property="og:updated_time" content="2018-02-06T07:40:11.380Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="用 6 个栈实现一个 O(1) 队列">
+<meta name="twitter:description" content="原文链接 转载已授权  《算法（第四版）》中的题目是这样的：用有限个栈实现一个队列，保证每个队列操作（在最坏情况下）都只需要常数次的栈操作。 那么这里就使用六个栈来解决这个问题。 这个算法来自于这篇论文。原文里用的是 Pure Lisp，不过语法很简单，还是很容易看懂的。 先导知识——用两个栈模拟一个队列如何使用两个栈来模拟一个队列操作？这是一道很经典的题目，答案也有很多种，这里只介绍之后会用到的">
+<meta name="twitter:image" content="http://yoursite.com/2018/02/06/20180206-stack-become-queue/0206_01.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.3',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/02/06/20180206-stack-become-queue/"/>
+
+
+
+
+
+  <title>用 6 个栈实现一个 O(1) 队列 | corresponding</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">corresponding</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/02/06/20180206-stack-become-queue/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="corresponding">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="corresponding">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">用 6 个栈实现一个 O(1) 队列</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-02-06T15:35:51+08:00">
+                2018-02-06
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Algorithm/" itemprop="url" rel="index">
+                    <span itemprop="name">Algorithm</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i> 浏览
+            <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>次
+            </span>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p><a href="http://www.cnblogs.com/ikesnowy/p/7157813.html" target="_blank" rel="noopener">原文链接 转载已授权</a> </p>
+<p>《算法（第四版）》中的题目是这样的：<br>用有限个栈实现一个队列，<br>保证每个队列操作（在最坏情况下）都只需要常数次的栈操作。</p>
+<p>那么这里就使用六个栈来解决这个问题。</p>
+<p>这个算法来自于这篇论文。<br>原文里用的是 Pure Lisp，不过语法很简单，还是很容易看懂的。</p>
+<h1 id="先导知识——用两个栈模拟一个队列"><a href="#先导知识——用两个栈模拟一个队列" class="headerlink" title="先导知识——用两个栈模拟一个队列"></a>先导知识——用两个栈模拟一个队列</h1><p>如何使用两个栈来模拟一个队列操作？<br>这是一道很经典的题目，答案也有很多种，这里只介绍之后会用到的一种方法。<br>首先我们有两个栈，H 和 T，分别用作出队和入队用。<br><img src="/2018/02/06/20180206-stack-become-queue/0206_01.png"></p>
+<p>这样，入队操作等同于向 T 添加元素，T 的入栈操作只需要 O(1) 时间。<br><img src="/2018/02/06/20180206-stack-become-queue/0206_02.png"></p>
+<p>如果 H 不为空，出队操作等同于 H 弹栈，H 的弹栈操作也只需要 O(1) 时间。<br><img src="/2018/02/06/20180206-stack-become-queue/0206_03.png"></p>
+<p>但如果 H 为空，则需要将 T 中的元素依次弹出并压入到 H 中，这是一个 O(n) 的操作。<br><img src="/2018/02/06/20180206-stack-become-queue/0206_04.png"></p>
+<p>显然，这种方式中，出队操作的最坏时间复杂度是 O(n)，并不满足题目要求。</p>
+<h1 id="分摊-O-n"><a href="#分摊-O-n" class="headerlink" title="分摊 O(n)"></a>分摊 O(n)</h1><p>那么，怎么解决这个问题呢？</p>
+<p>一个很自然的想法是，如果在栈 H 变为空之前，我们就能逐步将栈 T 的内容弹出并压入到另一个栈 H’ 中，等到栈 H 为空时，直接交换 H 和 H’ 即可。<br>假设目前的队列状态是这样，有三个元素等待出队，还有三个元素等待入队。<br><img src="/2018/02/06/20180206-stack-become-queue/0206_05.png"></p>
+<p>现在依次让三个元素出队，与此同时我们让栈 T 中的元素依次进入 H’ 中。<br>每一次出队都执行两个操作，元素出队和元素复制（Pop &amp; Push），时间复杂度 O(1) + O(1) + O(1) = O(1)。</p>
+<p>第一次操作（出队）<br><img src="/2018/02/06/20180206-stack-become-queue/0206_06.png"></p>
+<p>第二次操作（出队）<br><img src="/2018/02/06/20180206-stack-become-queue/0206_07.png"></p>
+<p>第三次操作（出队）<br><img src="/2018/02/06/20180206-stack-become-queue/0206_08.png"></p>
+<p>现在栈 H 和栈 T 都为空，下一次出队操作时，我们直接交换栈 H 和栈 H’（由于是交换引用，因此时间复杂度仍为 O(1)）。<br><img src="/2018/02/06/20180206-stack-become-queue/0206_09.png"></p>
+<p>之后再进行出队操作。</p>
+<p>这就是这个算法基本想法，在栈 H 变为空之前，分步将栈 T 中的内容分步复制到另一个栈中。<br>当栈 H 为空时直接用准备好的栈 H’ 替代 H，保证时间复杂度为常数。</p>
+<h1 id="对复制时-Enqueue-的支持和-T’-的引入"><a href="#对复制时-Enqueue-的支持和-T’-的引入" class="headerlink" title="对复制时 Enqueue 的支持和 T’ 的引入"></a>对复制时 Enqueue 的支持和 T’ 的引入</h1><p>刚才是一种理想情况，显然我们的队列在复制时不可能只发生出队操作，为了增加对入队操作的支持，我们引入临时栈 T’。</p>
+<p>例如我们有队列状态如下，现在启动复制进程，入队操作全部由 T’ 完成。<br><img src="/2018/02/06/20180206-stack-become-queue/0206_10.png"></p>
+<p>我们进行一次入队操作和两次出队操作，如下组图所示：</p>
+<p>第一次操作（入队）<br><img src="/2018/02/06/20180206-stack-become-queue/0206_11.png"></p>
+<p>第二次操作（出队）<br><img src="/2018/02/06/20180206-stack-become-queue/0206_12.png"></p>
+<p>第三次操作（出队）<br><img src="/2018/02/06/20180206-stack-become-queue/0206_13.png"></p>
+<p>现在 H 和 T 均为空，下一次操作时（不论入队还是出队），我们先交换 H 和 H’ 以及 T 和 T’，同时让入队操作控制权回到 T。<br><img src="/2018/02/06/20180206-stack-become-queue/0206_14.png"></p>
+<p>这样，我们增加了对复制时入队操作的支持，但还并不完全，只有在理想情况下才可以做到。</p>
+<h1 id="h-与-HR-，对复制时出入队序列支持的扩展"><a href="#h-与-HR-，对复制时出入队序列支持的扩展" class="headerlink" title="h 与 HR ，对复制时出入队序列支持的扩展"></a>h 与 HR ，对复制时出入队序列支持的扩展</h1><p>在之前的例子中，当复制结束时 H 总是为空的，现在我们来讨论一下复制结束时 H 不为空的情况。<br>如果复制结束时 H 不为空，直接交换的结果是我们丢失了原来栈 H 中的数据。<br>因此，在翻转 T 的同时，我们还应翻转 H 到 HR，并在最后将 HR 的内容再度翻转并添加到 H’ 上。</p>
+<p>这个过程可以以下图方式进行：</p>
+<p>初始状态：<br><img src="/2018/02/06/20180206-stack-become-queue/0206_15.png"></p>
+<p>第一次操作（入队），H-&gt;HR ,T-&gt;H’，时间复杂度 O(1) + O(1) + O(1) + O(1) + O(1) = O(1)。<br><img src="/2018/02/06/20180206-stack-become-queue/0206_16.png"></p>
+<p>第二次操作（入队）<br><img src="/2018/02/06/20180206-stack-become-queue/0206_17.png"></p>
+<p>第三次操作（入队）<br><img src="/2018/02/06/20180206-stack-become-queue/0206_18.png"></p>
+<p>第四次操作（入队）<br><img src="/2018/02/06/20180206-stack-become-queue/0206_19.png"></p>
+<p>第五次操作（入队）<br><img src="/2018/02/06/20180206-stack-become-queue/0206_20.png"></p>
+<p>第六次操作（出/入队执行前）<br><img src="/2018/02/06/20180206-stack-become-queue/0206_21.png"></p>
+<p>这样我们就解决了 H 复制结束后不为空的问题，代价是引入了两个额外的问题：</p>
+<p>操作次数增加到了 2k 次，k 代表栈 T 中的元素数量。（如果当 T 中元素数量大于 H 中元素数量时开始复制）<br>由于 H 被用于复制进程，我们无法在复制过程中支持出队操作。第一个问题解决方案比较简单，我们可以在每一次出/入队操作执行时进行两次的复制步骤（对 T 和 H 进行两次的 Pop 操作），时间复杂度仍为 O(1)。</p>
+<p>第二个问题我们通过引入栈 h 来解决。<br>h 用于在复制时代替 H 执行出队功能，它会在复制开始时自动变为栈 H 的一个浅拷贝（也就是说，h 和 H 共用同一片内存空间，但它们用于指示栈顶位置的指针相互独立）。</p>
+<p>现在我们有了全部 6 个栈，它们的功能如下图所示（为了方便介绍我将一些栈的位置做了调换）。<br><img src="/2018/02/06/20180206-stack-become-queue/0206_22.png"></p>
+<p>由于我们并不能预知接下来会发生的操作，因此当 H 栈中的元素数量第一次小于 T 栈中的元素数量时，我们就必须启动复制进程了（总是假设接下来全部都是出队操作）。我们引入一个布尔类型变量 IsCopying 来指示复制进程。<br><img src="/2018/02/06/20180206-stack-become-queue/0206_23.png"></p>
+<p>现在我们进行第一次入队操作，IsCopying = true，开始复制。<br>首先 h 变为 H 的浅拷贝，这个过程是 O(1) 的。<br><img src="/2018/02/06/20180206-stack-become-queue/0206_24.png"></p>
+<p>如果在复制过程中有出队操作，作为 H 的翻转 HR 中就有一个元素不再需要复制，我们引入一个变量 needcopy 来记录 HR 中需要复制的元素数量。<br><img src="/2018/02/06/20180206-stack-become-queue/0206_25.png"></p>
+<p>接下来是两次复制操作，T 和 H 分别有两个元素进入了 H’ 和 HR 。<br><img src="/2018/02/06/20180206-stack-become-queue/0206_26.png"></p>
+<p>然后是第二次出/入队操作，这次我们选择出队，1 出队后显然 HR 中的 1 不再需要复制，needcopy – 1。<br><img src="/2018/02/06/20180206-stack-become-queue/0206_27.png"></p>
+<p>随后再是两次复制操作，第一次将 H 中的 3 移到 HR 中，needcopy + 1，T 中的 5 移到 H’ 中；第二次只将 T 中的 4 移到 H’ 中。<br><img src="/2018/02/06/20180206-stack-become-queue/0206_28.png"></p>
+<p>第三次出/入队操作我们选择入队，8 入队。随后 HR 中的两个元素进入了 H’，needcopy – 2。<br><img src="/2018/02/06/20180206-stack-become-queue/0206_29.png"></p>
+<p>由于 needcopy 变成了 0，我们再额外进行一次交换操作，并将 IsCopying 置为 false。<br><img src="/2018/02/06/20180206-stack-become-queue/0206_30.png"><br>至此，完整的算法运行完毕。</p>
+<h1 id="有关复制开始时机的证明"><a href="#有关复制开始时机的证明" class="headerlink" title="有关复制开始时机的证明"></a>有关复制开始时机的证明</h1><p>这里我们选择了在第 k + 1 个元素入队时开始复制，现在证明一定能够在 h 空之前完成复制：</p>
+<p>假设复制开始时 H 有 k 个元素，T 有 k + 1个元素。<br>完成第一轮复制（H-&gt;HR , T-&gt;H’）需要 k + 1 次操作，<br>完成第二轮复制（H-&gt;H’）需要 k 次操作，总共需要 2k + 1 次操作才能完成复制。<br>而 h 的长度为 k，能够提供 2k 次的操作机会。第 k + 1 个元素入队时也能提供 2 次操作机会，因此一共是 2k + 2 次操作机会。</p>
+<p>由于 2k + 1 &lt; 2k + 2，我们证明了该算法能够及时完成复制工作。</p>
+<h1 id="程序设计"><a href="#程序设计" class="headerlink" title="程序设计"></a>程序设计</h1><p>根据之前的内容，我们可以开始设计程序了。主要实现三个功能，Enqueue(), Dequeue() 和 Peek()。</p>
+<p>根据算法要求我们添加一个进行复制时操作的函数 OneStep()，用于执行元素的复制，栈交换等操作。</p>
+<p>Peek() 只需要根据是否在进行复制选择栈 h 或栈 H 进行 Peek()。</p>
+<h2 id="Enqueue"><a href="#Enqueue" class="headerlink" title="Enqueue()"></a>Enqueue()</h2><p>如果不处于复制状态<br>如果 H.Length – T.Length &gt; 0，直接将元素压入栈 T。<br>否则令 IsCopying = true，h 进行浅拷贝，进行两次的 OneStep。<br>如果处于复制状态，将元素压入 T’，进行两次的 OneStep。</p>
+<h2 id="Dequeue"><a href="#Dequeue" class="headerlink" title="Dequeue()"></a>Dequeue()</h2><p>如果不处于复制状态<br>如果 H.Length – T.Length &gt; 0，直接从 H 弹出元素。<br>否则从 H 弹出元素，IsCopying = true，h 进行浅拷贝，进行两次的 OneStep。<br>如果处于复制状态，从 h 弹出元素，needcopy - 1，进行两次的 OneStep。</p>
+<h2 id="OneStep"><a href="#OneStep" class="headerlink" title="OneStep()"></a>OneStep()</h2><p>如果不处于复制状态，什么也不做。<br>如果处于复制状态。<br>如果 H 和 T 都不为空，从 H 搬运一个元素至 HR ，从 T 搬运一个元素至 H’ ，needcopy + 1。<br>如果 H 为空但 T 不为空，从 T 搬运一个元素至 H’ 。<br>如果 H 和 T 都为空，但 needcopy &gt; 1，从 HR 搬运一个元素至 H’ ，needcopy – 1。<br>如果 H 和 T 都为空，但 needcopy = 1，从 HR 搬运一个元素至 H’ ，needcopy – 1，交换 H 和 H’ 以及 T 和 T’，其他栈置空，退出复制状态。<br>如果 H 和 T 都为空，但 needcopy = 0，交换 H 和 H’ 以及 T 和 T’，其他栈置空，退出复制状态。</p>
+<h1 id="程序实现（C-）"><a href="#程序实现（C-）" class="headerlink" title="程序实现（C#）"></a>程序实现（C#）</h1><figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br></pre></td><td class="code"><pre><span class="line">using Generics;</span><br><span class="line"></span><br><span class="line">namespace _1._3._49</span><br><span class="line">&#123;</span><br><span class="line">    <span class="class"><span class="keyword">class</span> <span class="title">StackQueue</span>&lt;<span class="type">Item</span>&gt;</span></span><br><span class="line">    &#123;</span><br><span class="line">        Stack&lt;Item&gt; H;</span><br><span class="line">        Stack&lt;Item&gt; T;</span><br><span class="line">        Stack&lt;Item&gt; h;</span><br><span class="line">        Stack&lt;Item&gt; HH;</span><br><span class="line">        Stack&lt;Item&gt; TT;</span><br><span class="line">        Stack&lt;Item&gt; Hr;</span><br><span class="line"></span><br><span class="line">        bool isRecopying;</span><br><span class="line">        int nowcopying;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">public</span> StackQueue()</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">this</span>.isRecopying = <span class="literal">false</span>;</span><br><span class="line">            <span class="keyword">this</span>.nowcopying = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">            <span class="keyword">this</span>.H = new Stack&lt;Item&gt;();</span><br><span class="line">            <span class="keyword">this</span>.T = new Stack&lt;Item&gt;();</span><br><span class="line">            <span class="keyword">this</span>.h = new Stack&lt;Item&gt;();</span><br><span class="line">            <span class="keyword">this</span>.HH = new Stack&lt;Item&gt;();</span><br><span class="line">            <span class="keyword">this</span>.TT = new Stack&lt;Item&gt;();</span><br><span class="line">            <span class="keyword">this</span>.Hr = new Stack&lt;Item&gt;();</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">public</span> Item Peek()</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">if</span> (<span class="keyword">this</span>.isRecopying)</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="keyword">return</span> h.Peek();</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">else</span></span><br><span class="line">            &#123;</span><br><span class="line">                <span class="keyword">return</span> H.Peek();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">public</span> void Enqueue(Item item)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">if</span> (!<span class="keyword">this</span>.isRecopying &amp;&amp; Lendiff() &gt; <span class="number">0</span>)</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="keyword">this</span>.nowcopying = <span class="number">0</span>;</span><br><span class="line">                <span class="keyword">this</span>.T.Push(item);</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">else</span> <span class="keyword">if</span> (!<span class="keyword">this</span>.isRecopying &amp;&amp; Lendiff() == <span class="number">0</span>)</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="keyword">this</span>.T.Push(item);</span><br><span class="line">                <span class="keyword">this</span>.isRecopying = <span class="literal">true</span>;</span><br><span class="line">                <span class="keyword">this</span>.h = <span class="keyword">this</span>.H.Copy();</span><br><span class="line">                OneStep(OneStep(<span class="keyword">this</span>));</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">else</span> <span class="keyword">if</span> (<span class="keyword">this</span>.isRecopying)</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="keyword">this</span>.TT.Push(item);</span><br><span class="line">                OneStep(OneStep(<span class="keyword">this</span>));</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">public</span> int Lendiff()</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">this</span>.H.Size() - <span class="keyword">this</span>.T.Size();</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">public</span> Item Dequeue()</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">if</span> (!<span class="keyword">this</span>.isRecopying &amp;&amp; Lendiff() &gt; <span class="number">0</span>)</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="keyword">return</span> <span class="keyword">this</span>.H.Pop();</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">else</span> <span class="keyword">if</span> (!<span class="keyword">this</span>.isRecopying &amp;&amp; Lendiff() == <span class="number">0</span>)</span><br><span class="line">            &#123;</span><br><span class="line">                Item temp = <span class="keyword">this</span>.H.Pop();</span><br><span class="line">                <span class="keyword">this</span>.h = <span class="keyword">this</span>.H.Copy();</span><br><span class="line">                <span class="keyword">this</span>.isRecopying = <span class="literal">true</span>;</span><br><span class="line">                OneStep(OneStep(<span class="keyword">this</span>));</span><br><span class="line">                <span class="keyword">return</span> temp;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">else</span></span><br><span class="line">            &#123;</span><br><span class="line">                Item temp = <span class="keyword">this</span>.h.Pop();</span><br><span class="line">                <span class="keyword">this</span>.nowcopying--;</span><br><span class="line">                OneStep(OneStep(<span class="keyword">this</span>));</span><br><span class="line">                <span class="keyword">return</span> temp;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">private</span> static StackQueue&lt;Item&gt; OneStep(StackQueue&lt;Item&gt; q)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">if</span> (q.isRecopying &amp;&amp; !q.H.IsEmpty() &amp;&amp; !q.T.IsEmpty())</span><br><span class="line">            &#123;</span><br><span class="line">                q.nowcopying++;</span><br><span class="line">                q.HH.Push(q.T.Pop());</span><br><span class="line">                q.Hr.Push(q.H.Pop());</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">else</span> <span class="keyword">if</span> (q.isRecopying &amp;&amp; q.H.IsEmpty() &amp;&amp; !q.T.IsEmpty())</span><br><span class="line">            &#123;</span><br><span class="line">                q.isRecopying = <span class="literal">true</span>;</span><br><span class="line">                q.HH.Push(q.T.Pop());</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">else</span> <span class="keyword">if</span> (q.isRecopying &amp;&amp; q.H.IsEmpty() &amp;&amp; q.T.IsEmpty() &amp;&amp; q.nowcopying &gt; <span class="number">1</span>)</span><br><span class="line">            &#123;</span><br><span class="line">                q.isRecopying = <span class="literal">true</span>;</span><br><span class="line">                q.nowcopying--;</span><br><span class="line">                q.HH.Push(q.Hr.Pop());</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">else</span> <span class="keyword">if</span> (q.isRecopying &amp;&amp; q.H.IsEmpty() &amp;&amp; q.T.IsEmpty() &amp;&amp; q.nowcopying == <span class="number">1</span>)</span><br><span class="line">            &#123;</span><br><span class="line">                q.isRecopying = <span class="literal">false</span>;</span><br><span class="line">                q.nowcopying--;</span><br><span class="line">                q.HH.Push(q.Hr.Pop());</span><br><span class="line">                q.H = q.HH;</span><br><span class="line">                q.T = q.TT;</span><br><span class="line">                q.HH = new Stack&lt;Item&gt;();</span><br><span class="line">                q.TT = new Stack&lt;Item&gt;();</span><br><span class="line">                q.Hr = new Stack&lt;Item&gt;();</span><br><span class="line">                q.h = new Stack&lt;Item&gt;();</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">else</span> <span class="keyword">if</span> (q.isRecopying &amp;&amp; q.H.IsEmpty() &amp;&amp; q.T.IsEmpty() &amp;&amp; q.nowcopying == <span class="number">0</span>)</span><br><span class="line">            &#123;</span><br><span class="line">                q.isRecopying = <span class="literal">false</span>;</span><br><span class="line">                q.H = q.HH;</span><br><span class="line">                q.T = q.TT;</span><br><span class="line">                q.HH = new Stack&lt;Item&gt;();</span><br><span class="line">                q.TT = new Stack&lt;Item&gt;();</span><br><span class="line">                q.Hr = new Stack&lt;Item&gt;();</span><br><span class="line">                q.h = new Stack&lt;Item&gt;();</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">return</span> q;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+      
+    </div>
+    
+    
+    
+
+    
+      <div>
+        <div id="wechat_subscriber" style="display: block; padding: 10px 0; margin: 20px auto; width: 100%; text-align: center">
+    <img id="wechat_subscriber_qcode" src="/images/wechat-qcode.jpg" alt="corresponding wechat" style="width: 200px; max-width: 100%;"/>
+    <div>欢迎您扫一扫上面的微信公众号，订阅我的博客！</div>
+</div>
+
+      </div>
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Algorithm/" rel="tag"># Algorithm</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/01/10/20180110-Double-Stuffed-Security-in-Android-Oreo/" rel="next" title="像奥利奥一样的双重安全措施，尽在 Android Oreo">
+                <i class="fa fa-chevron-left"></i> 像奥利奥一样的双重安全措施，尽在 Android Oreo
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/avatar.jpg"
+                alt="corresponding" />
+            
+              <p class="site-author-name" itemprop="name">corresponding</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">9</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">4</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">9</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          <div class="links-of-author motion-element">
+            
+              
+                <span class="links-of-author-item">
+                  <a href="https://github.com/corresponding" target="_blank" title="GitHub">
+                    
+                      <i class="fa fa-fw fa-globe"></i>GitHub</a>
+                </span>
+              
+            
+          </div>
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#先导知识——用两个栈模拟一个队列"><span class="nav-number">1.</span> <span class="nav-text">先导知识——用两个栈模拟一个队列</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#分摊-O-n"><span class="nav-number">2.</span> <span class="nav-text">分摊 O(n)</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#对复制时-Enqueue-的支持和-T’-的引入"><span class="nav-number">3.</span> <span class="nav-text">对复制时 Enqueue 的支持和 T’ 的引入</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#h-与-HR-，对复制时出入队序列支持的扩展"><span class="nav-number">4.</span> <span class="nav-text">h 与 HR ，对复制时出入队序列支持的扩展</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#有关复制开始时机的证明"><span class="nav-number">5.</span> <span class="nav-text">有关复制开始时机的证明</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#程序设计"><span class="nav-number">6.</span> <span class="nav-text">程序设计</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Enqueue"><span class="nav-number">6.1.</span> <span class="nav-text">Enqueue()</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Dequeue"><span class="nav-number">6.2.</span> <span class="nav-text">Dequeue()</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#OneStep"><span class="nav-number">6.3.</span> <span class="nav-text">OneStep()</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#程序实现（C-）"><span class="nav-number">7.</span> <span class="nav-text">程序实现（C#）</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">corresponding</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.3</div>
+
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i> 访问人数
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i> 总访问量
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      次
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.3"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.3"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
