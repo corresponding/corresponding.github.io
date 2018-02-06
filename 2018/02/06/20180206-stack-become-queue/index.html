@@ -79,13 +79,13 @@
 
 
 
-<meta name="description" content="原文链接 转载已授权  《算法（第四版）》中的题目是这样的：用有限个栈实现一个队列，保证每个队列操作（在最坏情况下）都只需要常数次的栈操作。 那么这里就使用六个栈来解决这个问题。 这个算法来自于这篇论文。原文里用的是 Pure Lisp，不过语法很简单，还是很容易看懂的。 先导知识——用两个栈模拟一个队列如何使用两个栈">
+<meta name="description" content="原文链接 转载已授权  《算法（第四版）》中的题目是这样的：用有限个栈实现一个队列，保证每个队列操作（在最坏情况下）都只需要常数次的栈操作。 那么这里就使用六个栈来解决这个问题。 这个算法来自于这篇论文原文里用的是 Pure Lisp，不过语法很简单，还是很容易看懂的。 先导知识——用两个栈模拟一个队列如何使用两个栈来">
 <meta name="keywords" content="Algorithm">
 <meta property="og:type" content="article">
 <meta property="og:title" content="用 6 个栈实现一个 O(1) 队列">
 <meta property="og:url" content="http://yoursite.com/2018/02/06/20180206-stack-become-queue/index.html">
 <meta property="og:site_name" content="corresponding">
-<meta property="og:description" content="原文链接 转载已授权  《算法（第四版）》中的题目是这样的：用有限个栈实现一个队列，保证每个队列操作（在最坏情况下）都只需要常数次的栈操作。 那么这里就使用六个栈来解决这个问题。 这个算法来自于这篇论文。原文里用的是 Pure Lisp，不过语法很简单，还是很容易看懂的。 先导知识——用两个栈模拟一个队列如何使用两个栈来模拟一个队列操作？这是一道很经典的题目，答案也有很多种，这里只介绍之后会用到的">
+<meta property="og:description" content="原文链接 转载已授权  《算法（第四版）》中的题目是这样的：用有限个栈实现一个队列，保证每个队列操作（在最坏情况下）都只需要常数次的栈操作。 那么这里就使用六个栈来解决这个问题。 这个算法来自于这篇论文原文里用的是 Pure Lisp，不过语法很简单，还是很容易看懂的。 先导知识——用两个栈模拟一个队列如何使用两个栈来模拟一个队列操作？这是一道很经典的题目，答案也有很多种，这里只介绍之后会用到的一">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://yoursite.com/2018/02/06/20180206-stack-become-queue/0206_01.png">
 <meta property="og:image" content="http://yoursite.com/2018/02/06/20180206-stack-become-queue/0206_02.png">
@@ -117,10 +117,10 @@
 <meta property="og:image" content="http://yoursite.com/2018/02/06/20180206-stack-become-queue/0206_28.png">
 <meta property="og:image" content="http://yoursite.com/2018/02/06/20180206-stack-become-queue/0206_29.png">
 <meta property="og:image" content="http://yoursite.com/2018/02/06/20180206-stack-become-queue/0206_30.png">
-<meta property="og:updated_time" content="2018-02-06T07:40:11.380Z">
+<meta property="og:updated_time" content="2018-02-06T07:48:39.603Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="用 6 个栈实现一个 O(1) 队列">
-<meta name="twitter:description" content="原文链接 转载已授权  《算法（第四版）》中的题目是这样的：用有限个栈实现一个队列，保证每个队列操作（在最坏情况下）都只需要常数次的栈操作。 那么这里就使用六个栈来解决这个问题。 这个算法来自于这篇论文。原文里用的是 Pure Lisp，不过语法很简单，还是很容易看懂的。 先导知识——用两个栈模拟一个队列如何使用两个栈来模拟一个队列操作？这是一道很经典的题目，答案也有很多种，这里只介绍之后会用到的">
+<meta name="twitter:description" content="原文链接 转载已授权  《算法（第四版）》中的题目是这样的：用有限个栈实现一个队列，保证每个队列操作（在最坏情况下）都只需要常数次的栈操作。 那么这里就使用六个栈来解决这个问题。 这个算法来自于这篇论文原文里用的是 Pure Lisp，不过语法很简单，还是很容易看懂的。 先导知识——用两个栈模拟一个队列如何使用两个栈来模拟一个队列操作？这是一道很经典的题目，答案也有很多种，这里只介绍之后会用到的一">
 <meta name="twitter:image" content="http://yoursite.com/2018/02/06/20180206-stack-become-queue/0206_01.png">
 
 
@@ -381,7 +381,7 @@
         <p><a href="http://www.cnblogs.com/ikesnowy/p/7157813.html" target="_blank" rel="noopener">原文链接 转载已授权</a> </p>
 <p>《算法（第四版）》中的题目是这样的：<br>用有限个栈实现一个队列，<br>保证每个队列操作（在最坏情况下）都只需要常数次的栈操作。</p>
 <p>那么这里就使用六个栈来解决这个问题。</p>
-<p>这个算法来自于这篇论文。<br>原文里用的是 Pure Lisp，不过语法很简单，还是很容易看懂的。</p>
+<p>这个算法来自于这篇<a href="https://ecommons.cornell.edu/bitstream/handle/1813/6273/80-433.pdf?sequence=1&amp;isAllowed=y" target="_blank" rel="noopener">论文</a><br>原文里用的是 Pure Lisp，不过语法很简单，还是很容易看懂的。</p>
 <h1 id="先导知识——用两个栈模拟一个队列"><a href="#先导知识——用两个栈模拟一个队列" class="headerlink" title="先导知识——用两个栈模拟一个队列"></a>先导知识——用两个栈模拟一个队列</h1><p>如何使用两个栈来模拟一个队列操作？<br>这是一道很经典的题目，答案也有很多种，这里只介绍之后会用到的一种方法。<br>首先我们有两个栈，H 和 T，分别用作出队和入队用。<br><img src="/2018/02/06/20180206-stack-become-queue/0206_01.png"></p>
 <p>这样，入队操作等同于向 T 添加元素，T 的入栈操作只需要 O(1) 时间。<br><img src="/2018/02/06/20180206-stack-become-queue/0206_02.png"></p>
 <p>如果 H 不为空，出队操作等同于 H 弹栈，H 的弹栈操作也只需要 O(1) 时间。<br><img src="/2018/02/06/20180206-stack-become-queue/0206_03.png"></p>
