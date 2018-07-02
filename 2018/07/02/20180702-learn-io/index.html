@@ -1,0 +1,800 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.3" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.3">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.3" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="java,多线程,IO," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="1.I/O因为库文件的良好封装，我们在开发中可能不会用IO读写，不过程序底层还是离不开IO。这里就来简单介绍下IO吧。全称：Input/Output，顾名思义就是输入和输出。场景：涉及到数据交换的地方，通常是磁盘读写、网络数据传输等磁盘读写场景：我们记录服务器的日志，最终都要写入文件中保存。如果我们想要分析这些日志，也">
+<meta name="keywords" content="java,多线程,IO">
+<meta property="og:type" content="article">
+<meta property="og:title" content="浅析IO">
+<meta property="og:url" content="http://yoursite.com/2018/07/02/20180702-learn-io/index.html">
+<meta property="og:site_name" content="corresponding">
+<meta property="og:description" content="1.I/O因为库文件的良好封装，我们在开发中可能不会用IO读写，不过程序底层还是离不开IO。这里就来简单介绍下IO吧。全称：Input/Output，顾名思义就是输入和输出。场景：涉及到数据交换的地方，通常是磁盘读写、网络数据传输等磁盘读写场景：我们记录服务器的日志，最终都要写入文件中保存。如果我们想要分析这些日志，也需要重新从磁盘中读取这些文件。网络传输场景：在浏览器中输入google.com">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://yoursite.com/2018/07/02/20180702-learn-io/20180702_00.jpg">
+<meta property="og:image" content="http://yoursite.com/2018/07/02/20180702-learn-io/20180702_01.png">
+<meta property="og:image" content="http://yoursite.com/2018/07/02/20180702-learn-io/20180702_02.png">
+<meta property="og:image" content="http://yoursite.com/2018/07/02/20180702-learn-io/20180702_03.png">
+<meta property="og:updated_time" content="2018-07-02T09:40:02.709Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="浅析IO">
+<meta name="twitter:description" content="1.I/O因为库文件的良好封装，我们在开发中可能不会用IO读写，不过程序底层还是离不开IO。这里就来简单介绍下IO吧。全称：Input/Output，顾名思义就是输入和输出。场景：涉及到数据交换的地方，通常是磁盘读写、网络数据传输等磁盘读写场景：我们记录服务器的日志，最终都要写入文件中保存。如果我们想要分析这些日志，也需要重新从磁盘中读取这些文件。网络传输场景：在浏览器中输入google.com">
+<meta name="twitter:image" content="http://yoursite.com/2018/07/02/20180702-learn-io/20180702_00.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.3',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/07/02/20180702-learn-io/"/>
+
+
+
+
+
+  <title>浅析IO | corresponding</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">corresponding</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/07/02/20180702-learn-io/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="corresponding">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="corresponding">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">浅析IO</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-07-02T17:16:49+08:00">
+                2018-07-02
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/IO/" itemprop="url" rel="index">
+                    <span itemprop="name">IO</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i> 浏览
+            <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>次
+            </span>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <img src="/2018/07/02/20180702-learn-io/20180702_00.jpg">
+<h1 id="1-I-O"><a href="#1-I-O" class="headerlink" title="1.I/O"></a>1.I/O</h1><p>因为库文件的良好封装，我们在开发中可能不会用IO读写，不过程序底层还是离不开IO。这里就来简单介绍下IO吧。<br>全称：Input/Output，顾名思义就是输入和输出。<br>场景：涉及到数据交换的地方，通常是磁盘读写、网络数据传输等<br>磁盘读写场景：我们记录服务器的日志，最终都要写入文件中保存。如果我们想要分析这些日志，也需要重新从磁盘中读取这些文件。<br>网络传输场景：在浏览器中输入google.com这个地址，会向google的服务器发送一个请求，google服务器处理后传回google的首页，浏览器会把其中数据解析出来显示给用户。</p>
+<h1 id="2-挑战"><a href="#2-挑战" class="headerlink" title="2.挑战"></a>2.挑战</h1><p>I/O读写的核心逻辑很简单，主要是传输数据。但是在实际IO中还有一些挑战，就是我们需要花很多时间去等待IO传输。例如，我们浏览一个网页，需要花1s才能将服务端数据传到浏览器中，在浏览器中渲染和显示只需要0.01s。如果不做其他处理，从点击地址后一直等待页面显示，那就非常浪费时间。</p>
+<p>出现这个现象的原因是：CPU和内存的速度远远高于外设传输数据的速度。<br>短期内这个矛盾没有办法从根源上来解决，但是聪明的程序员想出很多策略去优化I/O场景。</p>
+<h1 id="3-同步IO"><a href="#3-同步IO" class="headerlink" title="3.同步IO"></a>3.同步IO</h1><h5 id="3-1-原始场景"><a href="#3-1-原始场景" class="headerlink" title="3.1.原始场景"></a>3.1.原始场景</h5><p>这是最原始的场景：我们只运行一个线程，服务端接收到浏览器请求后，等待IO读取结束再进行操作，中间无法处理任何响应。这样的体验一定是非常糟糕的，因为整个服务器无法处理其他请求。在刚才的例子中，点击网页后1s内无法相应其他任何请求，会让用户非常沮丧。</p>
+<h5 id="3-2-多线程"><a href="#3-2-多线程" class="headerlink" title="3.2.多线程"></a>3.2.多线程</h5><p>再稍微改善下，我们点击一个网页后，服务端新开一个线程去处理IO和其他操作。这时服务端还可以有其他线程去处理其他请求，这比原来好很多。<br><img src="/2018/07/02/20180702-learn-io/20180702_01.png"></p>
+<h5 id="3-3-昂贵的线程"><a href="#3-3-昂贵的线程" class="headerlink" title="3.3.昂贵的线程"></a>3.3.昂贵的线程</h5><p>但是线程是一种非常昂贵的资源，有以下四个原因：<br>1.每个空线程就占512k~1M的内存，如果线程增加太多JVM压力会变大；<br>2.在Linux中线程就是进程，无论是新建和销毁都要调用重量级系统函数，非常占用CPU；<br>3.线程切换时，需要更新线程的上下文，原先线程缓存的指令和数据都需要重新加载。这会影响整个程序的运行效率，就像我们看英文文献时发现陌生单词后，打开字典去查，查询完毕后再继续阅读。需要重新回想之前前后文，影响阅读效率；<br>4.有可能会有大量请求同时返回，CPU占有率变得锯齿状，服务器不稳定。</p>
+<h5 id="3-4-线程池"><a href="#3-4-线程池" class="headerlink" title="3.4.线程池"></a>3.4.线程池</h5><p>了解到线程的昂贵开销后，我们考虑接入线程池，可以重复利用原有线程。例如实时性要求不高的情况下，服务端同时有100个请求，线程池有20个线程，用着20个线程反复利用处理请求。这样只需要创建和销毁20个线程。而不用线程池的情况下，需要创建和销毁100个线程。这样大大降低的线程的开销，但是还是不能根治问题。因为始终需要线程去解决问题，我们需要换一种新的策略去解决问题。</p>
+<h1 id="4-异步IO"><a href="#4-异步IO" class="headerlink" title="4.异步IO"></a>4.异步IO</h1><p>异步IO，Asynchronous Input and Output，简称AIO<br>异步IO从新的角度解决问题，用户只发出IO请求，并不等待IO结果，然后就去执行其他代码了。一段时间后，当IO返回结果后，再通知用户进行处理。<br>举个例子，服务器接受到一个浏览器的请求，发送读取其请求的IO请求，但是并不等待IO结果，而是去处理其他操作。当IO请求返回结果后，服务端再去处理这段IO。</p>
+<p>这样操作的好处非常明显：用户不需要新开线程去处理IO。而且用户不用维护数据读不齐时的逻辑，因为操作系统将处理好的数据交给用户。<br>按照上面说的种种好处，大家肯定会觉得现在主流处理的IO肯定是AIO。但是其实不然，因为一个很现实的原因，纯正支持AIO的操作系统比较少。</p>
+<h1 id="5-各种IO对比"><a href="#5-各种IO对比" class="headerlink" title="5.各种IO对比"></a>5.各种IO对比</h1><img src="/2018/07/02/20180702-learn-io/20180702_02.png">
+<p>上面是一张特别经典的IO对比图，上面将各种IO都列出来了。我们一个个分析：</p>
+<h5 id="5-1-阻塞IO"><a href="#5-1-阻塞IO" class="headerlink" title="5.1.阻塞IO"></a>5.1.阻塞IO</h5><p>阻塞IO就是上面所说的同步IO，这里不继续讨论。<br>举个例子，我在奶茶店点了一杯奶茶，点好后就一直在柜台等着，直到奶茶做好。</p>
+<h5 id="5-2-非阻塞IO"><a href="#5-2-非阻塞IO" class="headerlink" title="5.2.非阻塞IO"></a>5.2.非阻塞IO</h5><p>轮询：每个一段时间检查是否进入可读状态，发现没有数据则立即返回，不会阻塞。但是轮询浪费CPU资源：大部分时间是无数据可读，但是仍不间断的反复执行。<br>举个例子，我在奶茶店点了一杯奶茶，选择去边上的商店逛逛，每隔一分钟回奶茶店看看奶茶是否完成。</p>
+<h5 id="5-3-IO复用"><a href="#5-3-IO复用" class="headerlink" title="5.3.IO复用"></a>5.3.IO复用</h5><p>IO复用是基于非阻塞IO的。可以理解成多个IO检查委托给一个对象，让它去统一监控管理IO是否就绪。<br>换一个场景，一个班级中每个通信都在奶茶店点了一杯奶茶，全权委托给班长，让他去看着奶茶是否做好。谁的奶茶做完了，就通知对应的同学。</p>
+<h5 id="5-4-信号驱动IO"><a href="#5-4-信号驱动IO" class="headerlink" title="5.4.信号驱动IO"></a>5.4.信号驱动IO</h5><p>信号驱动IO，就比较好理解。IO进入可读状态后，系统告知用户。<br>再举一个例子，我在奶茶店点了一杯奶茶，并且给店员留了手机号。之后我就去边上商店愉快的逛，店员在制作完奶茶后会打电话通知我。不用每过一段时间再去查看，也不需要委托给其他人让他去查看，非常开心。</p>
+<h5 id="5-5-异步IO"><a href="#5-5-异步IO" class="headerlink" title="5.5.异步IO"></a>5.5.异步IO</h5><p>异步IO和信号驱动IO模式比较接近，但是告知的时间点不同。信号驱动IO，在操作系统内核读取完数据后告知用户，用户接到通知后还需要从内核中读取，放到用户空间。而异步IO中，操作系统已经把上面的两步全部做完，放到用户空间后再告知用户。<br>这两个IO的对比再举个例子，我们在网上点了一台冰箱，有以下不同的场景。<br>信号驱动IO：快递员送到小区门口，然后快递员给我们打电话（内核空间中数据读取完成，进入可读状态），我们需要从小区门口搬到房间（将数据从内核空间中读取到用户空间），然后再安装冰箱（操作IO的接收到的数据）。<br>异步IO：快递员直接将冰箱送到家，这里包含了仓库到小区门口和小区门口到房间（包括读取到内核空间，内核空间到用户空间），送到房间门口时再通知我。</p>
+<h1 id="6-NIO"><a href="#6-NIO" class="headerlink" title="6.NIO"></a>6.NIO</h1><p>NIO全称为Non-blocking I/O（在Java领域，也称为New I/O）<br>与上面所说的IO复用模式相同，其中一个重要的角色就是监控管理IO是否可读的对象，在NIO中这个对象是Selector。Selector有一个重要方法select，select维护一张监听套接字的列表（使用前需要注册Selector上），一直阻塞，直到有一个套接字有数据可供读写。</p>
+<img src="/2018/07/02/20180702-learn-io/20180702_03.png">
+<p>上图中一个Selector管理着多个Channel，一个Channel代表一个IO通道。</p>
+<p>我们用一个交通管理系统去类比下NIO中的主要对象：<br>Channel：车辆<br>Selector：调度系统<br>Buffer：车辆上的货物<br>Stream：货物</p>
+<p>我们再看下主干代码，注意其中的注释：</p>
+<figure class="highlight gauss"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 1.Channel注册到Selector中</span></span><br><span class="line">channel.register(selector, opType);</span><br><span class="line"><span class="comment">// 2.Selector阻塞等待Channel变化</span></span><br><span class="line">Set selectedKeys = selector.selectedKeys();</span><br><span class="line"><span class="keyword">while</span>(keyIterator.hasNext()) &#123;</span><br><span class="line">    SelectionKey <span class="built_in">key</span> = keyIterator.next();</span><br><span class="line">    keyIterator.remove();</span><br><span class="line">    <span class="comment">// 3.按照类型做对应操作</span></span><br><span class="line">    <span class="keyword">if</span>(<span class="built_in">key</span>.isAcceptable()) &#123;</span><br><span class="line">        <span class="comment">// 注册新的Channel到Selector中</span></span><br><span class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span> (<span class="built_in">key</span>.isReadable()) &#123;</span><br><span class="line">        <span class="comment">// 读操作</span></span><br><span class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span> (<span class="built_in">key</span>.isWritable()) &#123;</span><br><span class="line">        <span class="comment">// 写操作</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+    
+    
+    
+
+    
+      <div>
+        <div id="wechat_subscriber" style="display: block; padding: 10px 0; margin: 20px auto; width: 100%; text-align: center">
+    <img id="wechat_subscriber_qcode" src="/images/wechat-qcode.jpg" alt="corresponding wechat" style="width: 200px; max-width: 100%;"/>
+    <div>欢迎您扫一扫上面的微信公众号，订阅我的博客！</div>
+</div>
+
+      </div>
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/java/" rel="tag"># java</a>
+          
+            <a href="/tags/多线程/" rel="tag"># 多线程</a>
+          
+            <a href="/tags/IO/" rel="tag"># IO</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/06/22/20180622-multithreading-n-questions/" rel="next" title="多线程基础小问">
+                <i class="fa fa-chevron-left"></i> 多线程基础小问
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/avatar.jpg"
+                alt="corresponding" />
+            
+              <p class="site-author-name" itemprop="name">corresponding</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">11</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">6</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">12</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          <div class="links-of-author motion-element">
+            
+              
+                <span class="links-of-author-item">
+                  <a href="https://github.com/corresponding" target="_blank" title="GitHub">
+                    
+                      <i class="fa fa-fw fa-globe"></i>GitHub</a>
+                </span>
+              
+            
+          </div>
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1-I-O"><span class="nav-number">1.</span> <span class="nav-text">1.I/O</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2-挑战"><span class="nav-number">2.</span> <span class="nav-text">2.挑战</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#3-同步IO"><span class="nav-number">3.</span> <span class="nav-text">3.同步IO</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#3-1-原始场景"><span class="nav-number">3.0.0.0.1.</span> <span class="nav-text">3.1.原始场景</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#3-2-多线程"><span class="nav-number">3.0.0.0.2.</span> <span class="nav-text">3.2.多线程</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#3-3-昂贵的线程"><span class="nav-number">3.0.0.0.3.</span> <span class="nav-text">3.3.昂贵的线程</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#3-4-线程池"><span class="nav-number">3.0.0.0.4.</span> <span class="nav-text">3.4.线程池</span></a></li></ol></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#4-异步IO"><span class="nav-number">4.</span> <span class="nav-text">4.异步IO</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#5-各种IO对比"><span class="nav-number">5.</span> <span class="nav-text">5.各种IO对比</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#5-1-阻塞IO"><span class="nav-number">5.0.0.0.1.</span> <span class="nav-text">5.1.阻塞IO</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#5-2-非阻塞IO"><span class="nav-number">5.0.0.0.2.</span> <span class="nav-text">5.2.非阻塞IO</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#5-3-IO复用"><span class="nav-number">5.0.0.0.3.</span> <span class="nav-text">5.3.IO复用</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#5-4-信号驱动IO"><span class="nav-number">5.0.0.0.4.</span> <span class="nav-text">5.4.信号驱动IO</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#5-5-异步IO"><span class="nav-number">5.0.0.0.5.</span> <span class="nav-text">5.5.异步IO</span></a></li></ol></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#6-NIO"><span class="nav-number">6.</span> <span class="nav-text">6.NIO</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">corresponding</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.3</div>
+
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i> 访问人数
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i> 总访问量
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      次
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.3"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.3"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
